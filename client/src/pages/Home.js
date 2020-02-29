@@ -5,7 +5,7 @@ import { Container, Row, Button, Col } from "react-bootstrap";
 import Axios from "axios";
 
 function Home(props) {
-  
+
   const { isAuth, logout } = useContext(AuthContext);
 
   const [secret, setSecret] = useState("");
@@ -46,27 +46,27 @@ function Home(props) {
               </Button>
             </>
           ) : (
-            <>
-              <Button
-                className="m-1"
-                onClick={e => {
-                  e.preventDefault();
-                  props.history.push("/login");
-                }}
-              >
-                Login
+              <>
+                <Button
+                  className="m-1"
+                  onClick={e => {
+                    e.preventDefault();
+                    props.history.push("/login");
+                  }}
+                >
+                  Login
               </Button>
-              <Button
-                className="m-1"
-                onClick={e => {
-                  e.preventDefault();
-                  props.history.push("/signup");
-                }}
-              >
-                Signup
+                <Button
+                  className="m-1"
+                  onClick={e => {
+                    e.preventDefault();
+                    props.history.push("/signup");
+                  }}
+                >
+                  Signup
               </Button>
-            </>
-          )}
+              </>
+            )}
           <Button
             className="m-1"
             onClick={e => {
