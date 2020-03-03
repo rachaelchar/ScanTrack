@@ -3,6 +3,7 @@ import { AuthContext } from "../AuthContext";
 import "../App.css";
 import { Container, Row, Button, Col } from "react-bootstrap";
 import Axios from "axios";
+import ScanJumbotron from "../components/ScanJumbotron";
 
 function Home(props) {
 
@@ -20,6 +21,7 @@ function Home(props) {
 
   return (
     <Container className="signup">
+      <ScanJumbotron />
       <Row>
         <Col md={{ span: 8, offset: 2 }}>
           <h1>Home Page</h1>

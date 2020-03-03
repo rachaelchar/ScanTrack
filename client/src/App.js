@@ -34,18 +34,21 @@ function App() {
   );
 
   return (
-    <Router>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={props => <Home {...props} />}
-        />
-        <Route exact path="/login" render={props => <Login {...props} />} />
-        <Route exact path="/signup" render={props => <Signup {...props} />} />
-        <PrivateRoute exact path="/members" component={Members} />
-      </Switch>
-    </Router>
+    <>
+      <Header />
+      <Router>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={props => <Home {...props} />}
+          />
+          <Route exact path="/login" render={props => <Login {...props} />} />
+          <Route exact path="/signup" render={props => <Signup {...props} />} />
+          <PrivateRoute exact path="/members" component={Members} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 
@@ -54,7 +57,6 @@ function App() {
 export default () => {
   return (
     <AuthProvider>
-      <Header />
       <App />
     </AuthProvider>
   );
