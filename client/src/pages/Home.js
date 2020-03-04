@@ -3,9 +3,11 @@ import { AuthContext } from "../AuthContext";
 import "../App.css";
 import { Container, Row, Button, Col } from "react-bootstrap";
 import Axios from "axios";
+import SideNav from "../components/SideNav"
+import ScanJumbotron from "../components/ScanJumbotron";
 
 function Home(props) {
-  
+
   const { isAuth, logout } = useContext(AuthContext);
 
   const [secret, setSecret] = useState("");
@@ -19,8 +21,27 @@ function Home(props) {
   };
 
   return (
-    <Container className="signup">
+    <div className="container-fluid">
+      {/* <Container className="signup"> */}
       <Row>
+        <Col md={{ span: 3 }}>
+          <SideNav />
+        </Col>
+        <Col md={{ span: 9 }}>
+          <ScanJumbotron />
+        </Col>
+      </Row>
+      {/* </Container> */}
+    </div>
+
+  );
+}
+
+export default Home;
+
+
+
+{/* <Row>
         <Col md={{ span: 8, offset: 2 }}>
           <h1>Home Page</h1>
           {isAuth ? (
@@ -46,27 +67,27 @@ function Home(props) {
               </Button>
             </>
           ) : (
-            <>
-              <Button
-                className="m-1"
-                onClick={e => {
-                  e.preventDefault();
-                  props.history.push("/login");
-                }}
-              >
-                Login
+              <>
+                <Button
+                  className="m-1"
+                  onClick={e => {
+                    e.preventDefault();
+                    props.history.push("/login");
+                  }}
+                >
+                  Login
               </Button>
-              <Button
-                className="m-1"
-                onClick={e => {
-                  e.preventDefault();
-                  props.history.push("/signup");
-                }}
-              >
-                Signup
+                <Button
+                  className="m-1"
+                  onClick={e => {
+                    e.preventDefault();
+                    props.history.push("/signup");
+                  }}
+                >
+                  Signup
               </Button>
-            </>
-          )}
+              </>
+            )}
           <Button
             className="m-1"
             onClick={e => {
@@ -83,8 +104,4 @@ function Home(props) {
           <h1>{secret}</h1>
         </Col>
       </Row>
-    </Container>
-  );
-}
-
-export default Home;
+    */}

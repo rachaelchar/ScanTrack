@@ -1,3 +1,14 @@
 .signup {
   padding-top: 100px;
 }
+
+$theme-colors: (
+  "primary":    ..,
+  "secondary":  ..,
+  "success":    ..,
+  "info":       ..,
+  "warning":    ..,
+  "danger":     ..,
+  "light":      ..,
+  "dark":       ..
+);

@@ -1,0 +1,13 @@
+#scan-clock {
+  font-size: 75px;
+  font-weight: bold;
+}
+
+#scan-date {
+  font-size: 36px;
+}
+
+#jumbotron {
+  width: 70%;
+  margin: auto;
+}
