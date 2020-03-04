@@ -27,5 +27,12 @@
 } 
 
 #sideNav {
-  height: 100%
+  height: 100vh
+}
+
+#logo {
+  height: 200px;
+  margin-left: 60px;
+  margin-bottom: 25px;
+  margin-top: 25px
 }
