@@ -5,6 +5,7 @@ import { Container, Row, Button, Col } from "react-bootstrap";
 import Axios from "axios";
 import SideNav from "../components/SideNav"
 import ScanJumbotron from "../components/ScanJumbotron";
+import TableExample from "../components/TableExample";
 
 function Home(props) {
 
@@ -29,6 +30,7 @@ function Home(props) {
         </Col>
         <Col md={{ span: 9 }}>
           <ScanJumbotron />
+          <TableExample />
         </Col>
       </Row>
       {/* </Container> */}
