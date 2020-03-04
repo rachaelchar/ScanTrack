@@ -3,6 +3,7 @@ import { AuthContext } from "../AuthContext";
 import "../App.css";
 import { Container, Row, Button, Col } from "react-bootstrap";
 import Axios from "axios";
+import SideNav from "../components/SideNav"
 import ScanJumbotron from "../components/ScanJumbotron";
 
 function Home(props) {
@@ -20,9 +21,27 @@ function Home(props) {
   };
 
   return (
-    <Container className="signup">
-      <ScanJumbotron />
+    <div className="container-fluid">
+      {/* <Container className="signup"> */}
       <Row>
+        <Col md={{ span: 3 }}>
+          <SideNav />
+        </Col>
+        <Col md={{ span: 9 }}>
+          <ScanJumbotron />
+        </Col>
+      </Row>
+      {/* </Container> */}
+    </div>
+
+  );
+}
+
+export default Home;
+
+
+
+{/* <Row>
         <Col md={{ span: 8, offset: 2 }}>
           <h1>Home Page</h1>
           {isAuth ? (
@@ -85,8 +104,4 @@ function Home(props) {
           <h1>{secret}</h1>
         </Col>
       </Row>
-    </Container>
-  );
-}
-
-export default Home;
+    */}

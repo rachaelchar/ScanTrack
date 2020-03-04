@@ -7,7 +7,7 @@ export default function ScanJumbotron() {
 
   return (
     <div>
-      <Jumbotron id="jumbotron" className="shadow p-3 mb-5 bg-white border border-secondary" >
+      <Jumbotron id="jumbotron" className="shadow p-3 my-5 bg-white border border-secondary" >
         <div id="currentTime" className="text-center">
 
           <Moment id="scan-clock" format="LT"></Moment> <br />
