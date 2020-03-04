@@ -1,7 +1,16 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Axios from 'axios';
 
 export default function TableExample() {
+
+  React.useEffect(() => {
+    Axios.get(`/api/employees`)
+      .then(res => {
+        const persons = res.data;
+        console.log(persons);
+      })
+  }, [])
 
   return (
     <Table striped bordered hover size="sm">
