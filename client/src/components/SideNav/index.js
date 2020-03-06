@@ -14,7 +14,7 @@ export default function SideNav() {
 
         <ul id="myMenu">
           <li><a href="#">Home</a></li>
-          <li><a href="#">View My Profile</a></li>
+          <li><a href="/profile">View My Profile</a></li>
           <li><a href="#">Register New Employee</a></li>
           <li><a href="#">Print Last Weeks Hours</a></li>
         </ul>

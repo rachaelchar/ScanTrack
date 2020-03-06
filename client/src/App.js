@@ -47,6 +47,7 @@ function App() {
           <Route exact path="/login" render={props => <Login {...props} />} />
           <Route exact path="/signup" render={props => <Signup {...props} />} />
           <PrivateRoute exact path="/members" component={Members} />
+          <PrivateRoute exact path="/profile" />
         </Switch>
       </Router>
     </>
