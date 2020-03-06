@@ -4,11 +4,13 @@ import Axios from 'axios';
 
 export default function TableExample() {
 
+  const [users, setUsers] = React.useState([]);
+
   React.useEffect(() => {
+
     Axios.get(`/api/employees`)
       .then(res => {
-        const persons = res.data;
-        console.log(persons);
+        setUsers(res.data);
       })
   }, [])
 
@@ -23,23 +25,28 @@ export default function TableExample() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan="2">Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        {users[0] !== undefined ? (
+          users.map(({ id, first_name, last_name, working_status }) => {
+            return (
+              <tr key={id}>
+                <td data-th="Id" className="align-middle">
+                  {id}
+                </td>
+                <td data-th="First" className="name-cell align-middle">
+                  {first_name}
+                </td>
+                <td data-th="Last" className="align-middle">
+                  {last_name}
+                </td>
+                <td data-th="Status" className="align-middle">
+                  {working_status.status}
+                </td>
+              </tr>
+            );
+          })
+        ) : (
+            <></>
+          )}
       </tbody>
     </Table>
   )
