@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <div>
       <Navbar bg="secondary" variant="dark">
-        <Navbar.Brand href="#home">ScanTrack</Navbar.Brand>
+        <Navbar.Brand href="/">ScanTrack</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>

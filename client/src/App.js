@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Members from "./pages/Members";
+import Profile from "./pages/Profile";
 import Container from "./components/Container";
 import Header from "./components/Header";
 
@@ -47,7 +48,7 @@ function App() {
           <Route exact path="/login" render={props => <Login {...props} />} />
           <Route exact path="/signup" render={props => <Signup {...props} />} />
           <PrivateRoute exact path="/members" component={Members} />
-          <PrivateRoute exact path="/profile" />
+          <PrivateRoute exact path="/profile" component={Profile} />
         </Switch>
       </Router>
     </>

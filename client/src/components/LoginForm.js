@@ -21,8 +21,7 @@ const LoginForm = props => {
     const handleFormSubmit = event => {
         event.preventDefault()
         const inputCreds = {
-            email: formData.emailInput,
-            password: formData.passwordInput
+            code: formData.code
         }
         login(inputCreds)
         setFormData(emptyCreds)
@@ -43,12 +42,8 @@ const LoginForm = props => {
     return (
         <Form onSubmit={handleFormSubmit}>
             <Form.Group controlId="emailInput">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control name="emailInput" type="email" placeholder="Enter email" value={formData.emailInput} onChange={handleInputChange} />
-            </Form.Group>
-            <Form.Group controlId="inputPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control name="passwordInput" type="password" placeholder="Password" value={formData.passwordInput} onChange={handleInputChange} />
+                <Form.Label>Scan Badge to Log In</Form.Label>
+                <Form.Control name="scanCode" type="text" placeholder=" " value={formData.code} onChange={handleInputChange} />
             </Form.Group>
             <Form.Group>
                 <Form.Text className="text-danger">
