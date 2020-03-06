@@ -40,3 +40,7 @@
   margin-top: 25px
 }
 
+#icon {
+  display: inline;
+  padding-right: 10px;
+}
