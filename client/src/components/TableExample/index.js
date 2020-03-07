@@ -8,16 +8,10 @@ export default function TableExample() {
   const [clockedIn, setClockedIn] = React.useState([]);
 
   React.useEffect(() => {
-
     Axios.get(`/api/employees`)
       .then(res => {
-        // let filtered = res.data.filter(employee => employee.working_status_id === 1)
-        // return filtered
         setUsers(res.data.filter(employee => employee.working_status_id === 1))
       })
-    // .then(filtered => {
-    //   console.log("test", filtered)
-    // })
   }, [])
 
   return (
