@@ -5,8 +5,13 @@ const passport = require('../../config/passport');
 // Using the passport.authenticate middleware with our local strategy.
 // passport.authenticate() is a middle ware provided by passport
 // and is configured
+// router.post('/login', (req, res) => {
+//   console.log(req.body.code);
+//   res.json(req.body.code);
+// });
+
 router.post('/login', passport.authenticate('local'), (req, res) => {
-  console.log(req);
+  // console.log(req.body.code);
   res.json(req.user);
 });
 
@@ -20,6 +25,8 @@ router.post('/signup', (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
+    code: req.body.code,
+    // password: req.body.password,
   })
     .then((dbResponse) => {
       res.json(dbResponse);

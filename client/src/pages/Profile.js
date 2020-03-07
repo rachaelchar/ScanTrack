@@ -11,13 +11,13 @@ const Profile = props => {
   // The secret is just something to demonstrate a placeholder authenticated
   // api route.
   const [secret, setSecret] = useState("");
-  const [employee, setEmployee]
+  const [employee, setEmployee] = useState();
 
   // this function is duplicated in the Home page component
   // consider refactor
   const getEmployees = async () => {
-    // Need to set scan input to 'code' variable in the below route
-    const response = await Axios.get(`/api/employees/?code=${code}`);
+    // Need to set scan input to 'code' variable in the below route 
+    const response = await Axios.get(`/api/employees/?code=`);
     setEmployee(response.data);
   };
 
