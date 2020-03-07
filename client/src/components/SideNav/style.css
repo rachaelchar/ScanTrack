@@ -1,30 +1,32 @@
 /* W3 Schools */
 
-#mySearch {
-  width: 100%;
-  font-size: 18px;
-  padding: 11px;
-  border: 1px solid #ddd;
-}
-
-/* Style the navigation menu */
-#myMenu {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Style the navigation links */
-#myMenu li a {
-  padding: 12px;
+/* Style sidebar links */
+.sidebar a {
+  padding: 6px 8px 6px 16px;
   text-decoration: none;
-  color: black;
-  display: block
+  font-size: 20px;
+  color: #e2e8f0;
+  display: block;
 }
 
-#myMenu li a:hover {
-  background-color: #eee;
-} 
+/* Style links on mouse-over */
+.sidebar a:hover {
+  background-color: #f1f1f1;
+  color: #718096;
+  text-decoration: none;
+}
+
+/* Style the main content */
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+}
+
+/* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
 
 #sideNav {
   height: 100vh
@@ -36,6 +38,10 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 25px;
-  margin-top: 25px;
-  display: block
+  margin-top: 25px
+}
+
+#icon {
+  display: inline;
+  padding-right: 10px;
 }

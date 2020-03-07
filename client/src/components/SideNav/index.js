@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../../images/logo.png";
 
+
 import './style.css';
 
 export default function SideNav() {
@@ -9,15 +10,17 @@ export default function SideNav() {
     <div className="row">
       <div className="col-12 bg-primary" id="sideNav">
         <img id="logo" src={logo} />
+        <hr></hr>
 
-        <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category"></input>
-
-        <ul id="myMenu">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">View My Profile</a></li>
-          <li><a href="#">Register New Employee</a></li>
-          <li><a href="#">Print Last Weeks Hours</a></li>
-        </ul>
+        <div class="sidebar">
+          <a href="/home"><i id="icon" className="fa fa-home"></i>Home</a>
+          <hr></hr>
+          <a href="/dummy"><i id="icon" className="fa fa-cog" aria-hidden="true"></i>View My Profile</a>
+          <hr></hr>
+          <a href="clients"><i id="icon" className="fa fa-fw fa-user"></i>Register New Employee</a>
+          <hr></hr>
+          <a href="contact"><i id="icon" className="fa fa-print"></i>Print Last Weeks Hours</a>
+        </div>
       </div>
     </div>
   )
