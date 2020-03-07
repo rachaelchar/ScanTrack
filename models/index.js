@@ -33,4 +33,27 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.clockin = require('../models/clockin')(sequelize, Sequelize);
+db.employee = require('../models/employee')(sequelize, Sequelize);
+db.leave_type = require('../models/leave_type')(sequelize, Sequelize);
+db.pay_type = require('../models/pay_type')(sequelize, Sequelize);
+db.timeoff = require('../models/timeoff')(sequelize, Sequelize);
+db.working_status = require('../models/working_status')(sequelize, Sequelize);
+
+// Relations
+db.employee.belongsTo(db.working_status);
+db.working_status.hasMany(db.employee);
+
+db.employee.belongsTo(db.pay_type);
+db.pay_type.hasMany(db.employee);
+
+db.clockin.belongsTo(db.employee);
+db.employee.hasMany(db.clockin);
+
+db.timeoff.belongsTo(db.employee);
+db.employee.hasMany(db.timeoff);
+
+db.timeoff.belongsTo(db.leave_type);
+db.leave_type.hasMany(db.timeoff);
+
 module.exports = db;
