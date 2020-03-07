@@ -5,23 +5,31 @@ import Axios from 'axios';
 export default function TableExample() {
 
   const [users, setUsers] = React.useState([]);
+  const [clockedIn, setClockedIn] = React.useState([]);
 
   React.useEffect(() => {
 
     Axios.get(`/api/employees`)
       .then(res => {
-        setUsers(res.data);
+        // let filtered = res.data.filter(employee => employee.working_status_id === 1)
+        // return filtered
+        setUsers(res.data.filter(employee => employee.working_status_id === 1))
       })
+    // .then(filtered => {
+    //   console.log("test", filtered)
+    // })
   }, [])
 
   return (
+
     <Table striped bordered hover size="sm">
+      {console.log(users)}
       <thead>
         <tr>
           <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+          <th>Employee</th>
+          <th>Status</th>
+          <th>View Profile</th>
         </tr>
       </thead>
       <tbody>
@@ -33,13 +41,13 @@ export default function TableExample() {
                   {id}
                 </td>
                 <td data-th="First" className="name-cell align-middle">
-                  {first_name}
+                  {first_name} {last_name}
                 </td>
                 <td data-th="Last" className="align-middle">
-                  {last_name}
+                  {working_status.status}
                 </td>
                 <td data-th="Status" className="align-middle">
-                  {working_status.status}
+                  {}
                 </td>
               </tr>
             );
