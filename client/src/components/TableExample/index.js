@@ -1,23 +1,22 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-import Axios from 'axios';
+// import Axios from 'axios';
 
-export default function TableExample() {
+export default function TableExample(props) {
 
-  const [users, setUsers] = React.useState([]);
-  const [clockedIn, setClockedIn] = React.useState([]);
+  // const [users, setUsers] = React.useState([]);
+  // const [clockedIn, setClockedIn] = React.useState([]);
 
-  React.useEffect(() => {
-    Axios.get(`/api/employees`)
-      .then(res => {
-        setUsers(res.data.filter(employee => employee.working_status_id === 1))
-      })
-  }, [])
+  // React.useEffect(() => {
+  //   Axios.get(`/api/employees`)
+  //     .then(res => {
+  //       setUsers(res.data.filter(employee => employee.working_status_id === 1))
+  //     })
+  // }, [])
 
   return (
 
     <Table striped bordered hover size="sm">
-      {console.log(users)}
       <thead>
         <tr>
           <th>Profile Picture</th>
@@ -26,12 +25,12 @@ export default function TableExample() {
         </tr>
       </thead>
       <tbody>
-        {users[0] !== undefined ? (
-          users.map(({ id, first_name, last_name, working_status }) => {
+        {props.clockedInUsers[0] !== undefined ? (
+          props.clockedInUsers.map(({ id, first_name, last_name, working_status }) => {
             return (
               <tr key={id}>
                 <td>
-                  <img height="42" width="42" src="https://lh3.googleusercontent.com/proxy/e8bkuSXslb3PexchY7x2iBygxiO7nv-GoMFtBOrw3vbeo5_lroQHzH7IwjBc_DwFnns1cq2NzxHQxhgNp1_cu215VARAqJeSodBJ-qFCFJIGI7MrMBxB8HoOmFPbsCJz_FDPtXIssWNAiWwr4DHM_j6CC9Fpj0fyH4MukRpX4At_YM311PO2A5sLFRFBOIA" />
+                  <img height="42" width="42" src="https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" />
                 </td>
                 <td data-th="First" className="name-cell align-middle">
                   {first_name} {last_name}

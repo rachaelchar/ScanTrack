@@ -18,49 +18,11 @@ export default class ScanJumbotron extends React.Component {
     this.setState({ value: event.target.value });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event, props) {
     event.preventDefault();
     const code = this.state.value;
     this.setState({ value: "" });
-
-    Axios.get(`/api/employees/?code=${code}`)
-      .then(res => {
-        const user = res.data;
-        if (user === null) {
-          return 'Invalid Scan';
-        }
-        const clockinInfo = {
-          id: user.id,
-          working_status_id: user.working_status_id,
-          status: user.working_status.status,
-          time: moment().format('HH:MM:SS'),
-          week_num: moment(moment().format('L'), 'MM/DD/YYYY').week(),
-          year: moment().format('YYYY-MM-DD'),
-        };
-
-        console.log(clockinInfo)
-        return clockinInfo;
-      })
-      .then((response) => {
-
-        if (response === false) {
-          return response;
-        }
-
-        let newStatus = 2;
-        if (response.working_status_id === 2 || response.working_status_id === 3) {
-          newStatus = 1;
-        }
-
-        Axios.put('/api/employees/clockin', {
-          id: response.id,
-          working_status_id: newStatus,
-        });
-      })
-      .catch((err) => {
-        throw (err);
-      });
-
+    this.props.clockInFunc(code)
   }
 
   render() {

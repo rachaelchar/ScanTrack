@@ -4,11 +4,13 @@ import { AuthProvider, AuthContext } from "./AuthContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
+import moment from "moment"
 import Login from "./pages/Login";
 import Members from "./pages/Members";
 import Container from "./components/Container";
 import Header from "./components/Header";
 import Dummy from "./pages/Dummy";
+import Axios from 'axios';
 
 // Even though this is the App.js file, in the end we are not exactly exporting
 // the App component.  We actually set up the app component to implement our react
@@ -35,6 +37,60 @@ function App() {
     />
   );
 
+
+  const [users, setUsers] = React.useState([]);
+  const [clockedIn, setClockedIn] = React.useState([]);
+
+  React.useEffect(() => {
+    Axios.get(`/api/employees`)
+      .then(res => {
+        setUsers(res.data)
+        setClockedIn(res.data.filter(employee => employee.working_status_id === 1))
+      })
+  }, [])
+
+  const clockInFunc = code => {
+    Axios.get(`/api/employees/?code=${code}`)
+      .then(res => {
+        const targetUser = res.data;
+        if (targetUser === null) {
+          return 'Invalid Scan';
+        }
+        const clockinInfo = {
+          id: targetUser.id,
+          working_status_id: targetUser.working_status_id,
+          status: targetUser.working_status.status,
+          time: moment().format('HH:MM:SS'),
+          week_num: moment(moment().format('L'), 'MM/DD/YYYY').week(),
+          year: moment().format('YYYY-MM-DD'),
+        };
+
+        return clockinInfo;
+      })
+      .then((response) => {
+
+        if (response === false) {
+          return response;
+        }
+
+        let newStatus = 2;
+        if (response.working_status_id === 2 || response.working_status_id === 3) {
+          newStatus = 1;
+        }
+
+        Axios.put('/api/employees/clockin', {
+          id: response.id,
+          working_status_id: newStatus,
+        })
+          .then(res => {
+            setClockedIn(res.data)
+          });
+      })
+      .catch((err) => {
+        throw (err);
+      });
+  }
+
   return (
     <>
       <Header />
@@ -43,7 +99,11 @@ function App() {
           <Route
             exact
             path="/"
-            render={props => <Home {...props} />}
+            render={props => <Home
+              allUsers={users}
+              clockedInUsers={clockedIn}
+              clockInFunc={clockInFunc}
+              {...props} />}
           />
           <Route exact path="/login" render={props => <Login {...props} />} />
           <Route exact path="/signup" render={props => <Signup {...props} />} />
