@@ -9,6 +9,7 @@ import Members from "./pages/Members";
 import Container from "./components/Container";
 import Header from "./components/Header";
 import Dummy from "./pages/Dummy";
+import Register from "./pages/Register";
 
 // Even though this is the App.js file, in the end we are not exactly exporting
 // the App component.  We actually set up the app component to implement our react

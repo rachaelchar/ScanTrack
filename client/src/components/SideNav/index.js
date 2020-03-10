@@ -17,7 +17,7 @@ export default function SideNav() {
           <hr></hr>
           <a href="/dummy"><i id="icon" className="fa fa-cog" aria-hidden="true"></i>View My Profile</a>
           <hr></hr>
-          <a href="clients"><i id="icon" className="fa fa-fw fa-user"></i>Register New Employee</a>
+          <a href="/register"><i id="icon" className="fa fa-fw fa-user"></i>Register New Employee</a>
           <hr></hr>
           <a href="contact"><i id="icon" className="fa fa-print"></i>Print Last Weeks Hours</a>
         </div>

@@ -1,7 +1,17 @@
 import React from "react";
 import EmployeeRow from './EmployeeRow';
+import Axios from 'axios';
+import Table from 'react-bootstrap/Table';
 
 export default function EmployeeStatusTable() {
+
+  React.useEffect(() => {
+    Axios.get('/api/employees')
+      .then(res => {
+        const persons = res.data;
+        console.log(persons);
+      })
+  }, [])
 
   return (
     <div>
