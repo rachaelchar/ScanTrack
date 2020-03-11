@@ -23,7 +23,6 @@ function Home(props) {
 
   return (
     <div className="container-fluid">
-      {/* <div className="container-fluid" onClick={() => { this.myInp.focus() }}> */}
       {/* <Container className="signup"> */}
       <Row>
         <Col md={{ span: 3 }}>

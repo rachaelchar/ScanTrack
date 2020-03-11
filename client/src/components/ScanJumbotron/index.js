@@ -16,7 +16,7 @@ export default class ScanJumbotron extends React.Component {
     this.setState({ value: event.target.value });
   }
 
-  handleSubmit(event, props) {
+  handleSubmit(event) {
     event.preventDefault();
     const code = this.state.value;
     if (code !== "") {
@@ -38,8 +38,7 @@ export default class ScanJumbotron extends React.Component {
             <form id="scan-form" className="" onSubmit={this.handleSubmit}>
               <div className="mt-4">
                 <input id="badgeID"
-                  className="border mb-3" caretHidden={true} autofocus="true"
-                  ref={(ip) => this.myInp = ip}
+                  className="border mb-3" caretHidden={true} autofocus="true" autoComplete="off"
                   type="text" placeholder="Scan Badge" onChange={this.handleChange} value={this.state.value} />
               </div>
             </form>
