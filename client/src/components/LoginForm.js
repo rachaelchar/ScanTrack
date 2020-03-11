@@ -6,7 +6,8 @@ import Axios from 'axios';
 
 const LoginForm = props => {
 
-    const { setIsAuth } = useContext(AuthContext)
+    const { setIsAuth, setUser } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const emptyCreds = { code: '', password: '*' }
     const errorMessage = 'invalid credentials'
     const [formData, setFormData] = useState(emptyCreds)
@@ -26,6 +27,7 @@ const LoginForm = props => {
         }
         login(inputCreds)
         setFormData(emptyCreds)
+        console.log('user', user)
     }
 
     const login = loginCreds => {
@@ -33,6 +35,7 @@ const LoginForm = props => {
             .then(user => {
                 console.log("login response ", user)
                 setIsAuth(true)
+                setUser(user)
             })
             .catch(err => {
                 setCredsAreInvalid(errorMessage)
@@ -54,10 +57,6 @@ const LoginForm = props => {
             <Button className='m-1' variant="primary" type="submit">
                 Submit
             </Button>
-            <Button className='m-1' onClick={e => {
-                e.preventDefault();
-                props.history.push('/signup')
-            }}>Signup</Button>
             <Button className='m-1' onClick={e => {
                 e.preventDefault();
                 props.history.push('/')
