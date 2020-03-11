@@ -10,7 +10,7 @@ export default function SideNav() {
       <div className="col-12 bg-primary" id="sideNav">
         <img id="logo" src={logo} />
 
-        <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category"></input>
+        <input type="text" id="mySearch" placeholder="Search.." title="Type in a category"></input>
 
         <ul id="myMenu">
           <li><a href="#">Home</a></li>
