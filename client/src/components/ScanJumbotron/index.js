@@ -19,8 +19,11 @@ export default class ScanJumbotron extends React.Component {
   handleSubmit(event, props) {
     event.preventDefault();
     const code = this.state.value;
-    this.setState({ value: "" });
-    this.props.clockInFunc(code)
+    if (code !== "") {
+      this.setState({ value: "" });
+      this.props.clockInFunc(code)
+    }
+
   }
 
   render() {
