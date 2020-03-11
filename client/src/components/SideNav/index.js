@@ -20,6 +20,7 @@ export default function SideNav() {
           <a href="/register"><i id="icon" className="fa fa-fw fa-user"></i>Register New Employee</a>
           <hr></hr>
           <a href="contact"><i id="icon" className="fa fa-print"></i>Print Last Weeks Hours</a>
+          <hr></hr>
         </div>
       </div>
     </div>

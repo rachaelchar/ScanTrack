@@ -1,27 +1,49 @@
 import React from "react";
 import Moment from "react-moment";
+import moment from "moment"
 import Jumbotron from "react-bootstrap/Jumbotron";
+import Axios from 'axios';
 import './style.css';
 
-export default function ScanJumbotron() {
+export default class ScanJumbotron extends React.Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div>
-      <Jumbotron id="jumbotron" className="shadow p-3 my-5 bg-white border border-secondary" >
-        <div id="currentTime" className="text-center">
+    this.state = { value: "" }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-          <Moment id="scan-clock" format="LT"></Moment> <br />
-          <Moment id="scan-date" format="MMMM Do, YYYY"></Moment>
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
 
-          <form id="scan-form" className="">
-            <div className="mt-4" onkeypress="">
-              <input id="badgeID"
-                className="border mb-3"
-                type="text" placeholder="Scan Badge" />
-            </div>
-          </form>
-        </div>
-      </Jumbotron>
-    </div>
-  )
+  handleSubmit(event, props) {
+    event.preventDefault();
+    const code = this.state.value;
+    this.setState({ value: "" });
+    this.props.clockInFunc(code)
+  }
+
+  render() {
+    return (
+      <div>
+        <Jumbotron id="jumbotron" className="shadow p-3 my-5 bg-white border border-secondary" >
+          <div id="currentTime" className="text-center">
+
+            <Moment id="scan-clock" format="LT"></Moment> <br />
+            <Moment id="scan-date" format="MMMM Do, YYYY"></Moment>
+
+            <form id="scan-form" className="" onSubmit={this.handleSubmit}>
+              <div className="mt-4">
+                <input id="badgeID"
+                  className="border mb-3"
+                  type="text" placeholder="Scan Badge" onChange={this.handleChange} value={this.state.value} />
+              </div>
+            </form>
+          </div>
+        </Jumbotron>
+      </div>
+    )
+  }
 }

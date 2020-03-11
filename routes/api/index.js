@@ -6,7 +6,6 @@ router.get('/secrets', isAuthenticated, (req, res) => {
   res.json('Talk is cheap. Show me the code. -Linus Torvalds');
 });
 
-
 router.get('/employees', (req, res) => {
   let query;
   if (req.query.id) {
@@ -33,8 +32,15 @@ router.put('/employees/clockin', (req, res) => {
     { working_status_id: req.body.working_status_id },
     { where: { id: req.body.id } },
   )
-    .then((dbEmployee) => {
-      res.json(dbEmployee);
+    .then(() => {
+      const query = db.employee.findAll({
+        where: { working_status_id: 1 },
+        include: [db.working_status, db.pay_type],
+      });
+
+      return query.then((employees) => {
+        res.json(employees);
+      });
     });
 });
 
