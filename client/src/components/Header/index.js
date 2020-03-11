@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
+import { AuthContext } from "../../AuthContext";
 
 export default function Header() {
+
+  const { user } = useContext(AuthContext)
+  console.log("current user: ", user)
+
 
   return (
     <div>
@@ -9,9 +14,11 @@ export default function Header() {
         <Navbar.Brand href="/">ScanTrack</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            Signed in as: <a href="#login">Name</a>
-          </Navbar.Text>
+          <AuthContext.Provider>
+            <Navbar.Text>
+              Signed in as: <a href="#login">{user ? user.data.first_name : 'No User Logged In'}</a>
+            </Navbar.Text>
+          </AuthContext.Provider>
         </Navbar.Collapse>
       </Navbar>
     </div>
