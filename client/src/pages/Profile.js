@@ -6,7 +6,7 @@ import "../App.css";
 
 const Profile = props => {
   // Destructure the logout function from AuthContext
-  const { logout } = useContext(AuthContext);
+  const { logout, checkAuth } = useContext(AuthContext);
 
   // The secret is just something to demonstrate a placeholder authenticated
   // api route.
@@ -20,6 +20,8 @@ const Profile = props => {
     const response = await Axios.get(`/api/employees/?code=`);
     setEmployee(response.data);
   };
+
+  console.log("checkAuth Profile: ", checkAuth())
 
   return (
     <Container className="signup">
