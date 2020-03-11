@@ -15,7 +15,7 @@ export default function SideNav() {
         <div class="sidebar">
           <a href="/home"><i id="icon" className="fa fa-home"></i>Home</a>
           <hr></hr>
-          <a href="/dummy"><i id="icon" className="fa fa-cog" aria-hidden="true"></i>View My Profile</a>
+          <a href="/profile"><i id="icon" className="fa fa-cog" aria-hidden="true"></i>View My Profile</a>
           <hr></hr>
           <a href="clients"><i id="icon" className="fa fa-fw fa-user"></i>Register New Employee</a>
           <hr></hr>

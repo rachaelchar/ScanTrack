@@ -7,7 +7,8 @@ const db = require('../models');
 passport.use(new LocalStrategy(
   // Our user will sign in using an email, rather than a "username"
   {
-    usernameField: 'email',
+    usernameField: 'code',
+    passwordField: 'password',
   },
   // this is the function that passport runs when calling
   // passport.authenticate(), the done() function is built into
@@ -16,26 +17,27 @@ passport.use(new LocalStrategy(
   // in the login route: (req, res) => { res.json(req.user) },
   // and passing the request along with the user attached
 
-  ((email, password, done) => {
+  ((code, password, done) => {
     // When a user tries to sign in this code runs
+    // console.log('code', code);
     db.User.findOne({
       where: {
-        email,
+        code,
       },
     }).then((dbUser) => {
       // If there's no user with the given email
       if (!dbUser) {
         return done(null, false, {
-          message: 'Incorrect email.',
+          message: 'Not found.',
         });
       }
       // If there is a user with the given email, but the password
       // the user gives us is incorrect
-      if (!dbUser.validPassword(password)) {
-        return done(null, false, {
-          message: 'Incorrect password.',
-        });
-      }
+      // if (!dbUser.validPassword(password)) {
+      //   return done(null, false, {
+      //     message: 'Incorrect password.',
+      //   });
+      // }
       // If none of the above, call the done function
       // and pass the user
       return done(null, dbUser);

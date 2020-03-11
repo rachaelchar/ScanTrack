@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import moment from "moment"
 import Login from "./pages/Login";
 import Members from "./pages/Members";
+import Profile from "./pages/Profile";
 import Container from "./components/Container";
 import Header from "./components/Header";
 import Dummy from "./pages/Dummy";
@@ -93,7 +94,6 @@ function App() {
 
   return (
     <>
-      <Header />
       <Router>
         <Switch>
           <Route
@@ -111,6 +111,7 @@ function App() {
           <Route exact path="/dummy" render={props => <Dummy {...props} />} />
           <Route exact path="/home" render={props => <Signup {...props} />} />
           <PrivateRoute exact path="/members" component={Members} />
+          <PrivateRoute exact path="/profile" component={Profile} />
         </Switch>
       </Router>
     </>
@@ -123,6 +124,7 @@ export default () => {
   return (
     <AuthProvider>
       <Container />
+      <Header />
       <App />
     </AuthProvider>
   );

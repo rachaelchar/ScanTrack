@@ -6,8 +6,9 @@ import Axios from 'axios';
 
 const LoginForm = props => {
 
-    const { setIsAuth } = useContext(AuthContext)
-    const emptyCreds = { emailInput: '', passwordInput: '' }
+    const { setIsAuth, setUser } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
+    const emptyCreds = { code: '', password: '*' }
     const errorMessage = 'invalid credentials'
     const [formData, setFormData] = useState(emptyCreds)
     const [credsAreInvalid, setCredsAreInvalid] = useState('')
@@ -21,11 +22,12 @@ const LoginForm = props => {
     const handleFormSubmit = event => {
         event.preventDefault()
         const inputCreds = {
-            email: formData.emailInput,
-            password: formData.passwordInput
+            code: formData.code,
+            password: formData.password,
         }
         login(inputCreds)
         setFormData(emptyCreds)
+        console.log('user', user)
     }
 
     const login = loginCreds => {
@@ -33,6 +35,7 @@ const LoginForm = props => {
             .then(user => {
                 console.log("login response ", user)
                 setIsAuth(true)
+                setUser(user)
             })
             .catch(err => {
                 setCredsAreInvalid(errorMessage)
@@ -43,12 +46,8 @@ const LoginForm = props => {
     return (
         <Form onSubmit={handleFormSubmit}>
             <Form.Group controlId="emailInput">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control name="emailInput" type="email" placeholder="Enter email" value={formData.emailInput} onChange={handleInputChange} />
-            </Form.Group>
-            <Form.Group controlId="inputPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control name="passwordInput" type="password" placeholder="Password" value={formData.passwordInput} onChange={handleInputChange} />
+                <Form.Label>Scan Badge to Log In</Form.Label>
+                <Form.Control name="code" type="text" placeholder=" " value={formData.code} onChange={handleInputChange} />
             </Form.Group>
             <Form.Group>
                 <Form.Text className="text-danger">
@@ -58,10 +57,6 @@ const LoginForm = props => {
             <Button className='m-1' variant="primary" type="submit">
                 Submit
             </Button>
-            <Button className='m-1' onClick={e => {
-                e.preventDefault();
-                props.history.push('/signup')
-            }}>Signup</Button>
             <Button className='m-1' onClick={e => {
                 e.preventDefault();
                 props.history.push('/')
