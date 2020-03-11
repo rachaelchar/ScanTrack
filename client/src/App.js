@@ -37,7 +37,6 @@ function App() {
 
   return (
     <>
-      <Header />
       <Router>
         <Switch>
           <Route
@@ -61,6 +60,7 @@ export default () => {
   return (
     <AuthProvider>
       <Container />
+      <Header />
       <App />
     </AuthProvider>
   );
