@@ -29,8 +29,16 @@ function Home(props) {
           <SideNav />
         </Col>
         <Col md={{ span: 9 }}>
-          <ScanJumbotron />
-          <TableExample />
+          <ScanJumbotron
+            allUsers={props.allUsers}
+            clockedInUsers={props.clockedInUsers}
+            clockInFunc={props.clockInFunc}
+          />
+          <TableExample
+            allUsers={props.allUsers}
+            clockedInUsers={props.clockedInUsers}
+
+          />
         </Col>
       </Row>
       {/* </Container> */}
