@@ -15,10 +15,12 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
         Axios.get('api/auth/user_data')
             .then(response => {
-                if (response.data.email) {
+                console.log(response.data);
+                if (response.data.code) {
                     setIsAuth(true)
                     // Set user so we can access later for profile page
                     setUser(response.data)
+                    // console.log("checkAuth user: ", response.data)
                 } else {
                     setIsAuth(false)
                 }
@@ -35,5 +37,5 @@ export const AuthProvider = ({ children }) => {
             .catch(err => console.log(err));
     };
 
-    return <AuthContext.Provider value={{ isAuth, setIsAuth, checkAuth, logout }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ isAuth, setIsAuth, checkAuth, logout, user, setUser }}>{children}</AuthContext.Provider>;
 };
