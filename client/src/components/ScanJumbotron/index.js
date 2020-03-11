@@ -14,7 +14,7 @@ export default function ScanJumbotron() {
           <Moment id="scan-date" format="MMMM Do, YYYY"></Moment>
 
           <form id="scan-form" className="">
-            <div className="mt-4" onkeypress="">
+            <div className="mt-4">
               <input id="badgeID"
                 className="border mb-3"
                 type="text" placeholder="Scan Badge" />
