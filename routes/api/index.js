@@ -6,7 +6,6 @@ router.get('/secrets', isAuthenticated, (req, res) => {
   res.json('Talk is cheap. Show me the code. -Linus Torvalds');
 });
 
-
 router.get('/employees', (req, res) => {
   let query;
   if (req.query.id) {
