@@ -7,7 +7,7 @@ const passport = require('../../config/passport');
 // and is configured
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.json(req.user);
+  res.json(req.employee);
 });
 
 // Route for signing up a user. The user's password is automatically
@@ -15,7 +15,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 // Sequelize User Model. If the user is created successfully, proceed
 //  to log the user in, otherwise send back an error
 router.post('/signup', (req, res) => {
-  db.User.create({
+  db.employees.create({
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
@@ -44,11 +44,10 @@ router.get('/user_data', (req, res) => {
     res.json({});
   } else {
     // Otherwise send back the user's email and id
-    // res.json({
-    //   first_name: req.user.first_name,
-    //   code: req.user.code,
-    // });
-    res.json(req.user);
+    res.json({
+      first_name: req.user.first_name,
+      code: req.user.code,
+    });
   }
 });
 

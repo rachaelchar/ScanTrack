@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
                 if (response.data.code) {
                     setIsAuth(true)
                     // Set user so we can access later for profile page
-                    console.log(response.data);
                     setUser(response)
                     // console.log("checkAuth user: ", response.data)
                 } else {
