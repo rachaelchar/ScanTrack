@@ -38,7 +38,7 @@ export default class ScanJumbotron extends React.Component {
             <form id="scan-form" className="" onSubmit={this.handleSubmit}>
               <div className="mt-4">
                 <input id="badgeID"
-                  className="border mb-3" caretHidden={true} autofocus="true" autoComplete="off"
+                  className="border mb-3" carethidden="true" autoFocus={true} autoComplete="off"
                   type="text" placeholder="Scan Badge" onChange={this.handleChange} value={this.state.value} />
               </div>
             </form>

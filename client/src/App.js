@@ -26,7 +26,6 @@ function App() {
     />
   );
 
-
   const [users, setUsers] = React.useState([]);
   const [clockedIn, setClockedIn] = React.useState([]);
 
@@ -49,7 +48,7 @@ function App() {
           id: targetUser.id,
           working_status_id: targetUser.working_status_id,
           status: targetUser.working_status.status,
-          time: moment().format('HH:MM:SS'),
+          time: moment().format('HH:mm:ss'),
           week_num: moment(moment().format('L'), 'MM/DD/YYYY').week(),
           year: moment().format('YYYY-MM-DD'),
         };
@@ -111,6 +110,7 @@ function App() {
           <Route exact path="/home" render={props => <Signup {...props} />} />
           <PrivateRoute exact path="/members" component={Members} />
           <PrivateRoute exact path="/profile" component={Profile} />
+
         </Switch>
       </Router>
     </>

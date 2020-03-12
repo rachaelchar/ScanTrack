@@ -16,8 +16,8 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 //  to log the user in, otherwise send back an error
 router.post('/signup', (req, res) => {
   db.User.create({
-    first_name: req.body.firstName,
-    last_name: req.body.lastName,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
     email: req.body.email,
     password: req.body.password,
     code: req.body.code,
@@ -44,10 +44,11 @@ router.get('/user_data', (req, res) => {
     res.json({});
   } else {
     // Otherwise send back the user's email and id
-    res.json({
-      first_name: req.user.firstName,
-      code: req.user.code,
-    });
+    // res.json({
+    //   first_name: req.user.first_name,
+    //   code: req.user.code,
+    // });
+    res.json(req.user);
   }
 });
 

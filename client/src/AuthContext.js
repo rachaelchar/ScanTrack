@@ -19,7 +19,8 @@ export const AuthProvider = ({ children }) => {
                 if (response.data.code) {
                     setIsAuth(true)
                     // Set user so we can access later for profile page
-                    setUser(response.data)
+                    console.log(response.data);
+                    setUser(response)
                     // console.log("checkAuth user: ", response.data)
                 } else {
                     setIsAuth(false)
@@ -37,5 +38,5 @@ export const AuthProvider = ({ children }) => {
             .catch(err => console.log(err));
     };
 
-    return <AuthContext.Provider value={{ isAuth, setIsAuth, checkAuth, logout, user, setUser }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ isAuth, setIsAuth, checkAuth, logout, user }}>{children}</AuthContext.Provider>;
 };
