@@ -28,10 +28,12 @@ router.get('/employees', (req, res) => {
 });
 
 router.put('/employees/clockin', (req, res) => {
+
   db.employee.update(
     { working_status_id: req.body.working_status_id },
     { where: { id: req.body.id } },
   )
+  db.clockin.create(req.body.clockin)
     .then(() => {
       const query = db.employee.findAll({
         where: { working_status_id: 1 },

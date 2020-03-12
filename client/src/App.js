@@ -13,22 +13,10 @@ import Header from "./components/Header";
 import Dummy from "./pages/Dummy";
 import Axios from 'axios';
 
-// Even though this is the App.js file, in the end we are not exactly exporting
-// the App component.  We actually set up the app component to implement our react
-// router, but in the end we export App wrapped in the context provider
-
 function App() {
-  // Here we subscribe the authentication context using the useContext hook
-  // we use isAuth to determine whether the user is logged in, and setIsAuth
-  // to change their status on logout.
   const { isAuth, setIsAuth } = useContext(AuthContext);
   console.log("App auth: ", isAuth);
 
-  // here we are ceating a private route wrapper to prevent front end routing to 
-  // restricted pages.  The ({ component: Component, ...rest })  argument that is
-  // passed to this functional component is essentially the same as just passing 
-  // props, but using object destucturing.  the ...rest is literally the rest of 
-  // the props that were not destructured. 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
       {...rest}
@@ -65,7 +53,7 @@ function App() {
           week_num: moment(moment().format('L'), 'MM/DD/YYYY').week(),
           year: moment().format('YYYY-MM-DD'),
         };
-
+        console.log(clockinInfo)
         return clockinInfo;
       })
       .then((response) => {
@@ -82,10 +70,21 @@ function App() {
         Axios.put('/api/employees/clockin', {
           id: response.id,
           working_status_id: newStatus,
+          clockin: {
+            employee_id: response.id,
+            working_status_id: response.working_status_id,
+            time: response.time,
+            week_num: response.week_num,
+            year: response.year
+          },
         })
           .then(res => {
             setClockedIn(res.data)
           });
+        return response;
+      })
+      .then((response) => {
+
       })
       .catch((err) => {
         throw (err);

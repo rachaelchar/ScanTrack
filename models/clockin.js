@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       allowNull: false,
     },
+    working_status_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
     time: {
       type: DataTypes.TIME,
       allowNull: false,
