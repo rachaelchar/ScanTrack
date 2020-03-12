@@ -38,7 +38,6 @@ function App() {
     />
   );
 
-
   const [users, setUsers] = React.useState([]);
   const [clockedIn, setClockedIn] = React.useState([]);
 
@@ -112,6 +111,7 @@ function App() {
           <Route exact path="/home" render={props => <Signup {...props} />} />
           <PrivateRoute exact path="/members" component={Members} />
           <PrivateRoute exact path="/profile" component={Profile} />
+
         </Switch>
       </Router>
     </>
