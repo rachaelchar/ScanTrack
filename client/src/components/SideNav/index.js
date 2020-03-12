@@ -12,7 +12,7 @@ export default function SideNav() {
         <img id="logo" src={logo} />
         <hr></hr>
 
-        <div class="sidebar">
+        <div className="sidebar">
           <a href="/home"><i id="icon" className="fa fa-home"></i>Home</a>
           <hr></hr>
           <a href="/profile"><i id="icon" className="fa fa-cog" aria-hidden="true"></i>View My Profile</a>
