@@ -8,19 +8,19 @@ export default function SideNav() {
 
   return (
     <div className="row">
-      <div className="col-12 bg-primary" id="sideNav">
+      <div className="col-12 bg-primary px-0" id="sideNav">
         <img id="logo" src={logo} />
-        <hr></hr>
+        <hr className="mb-0"></hr>
 
         <div class="sidebar">
-          <a href="/home"><i id="icon" className="fa fa-home"></i>Home</a>
-          <hr></hr>
-          <a href="/profile"><i id="icon" className="fa fa-cog" aria-hidden="true"></i>View My Profile</a>
-          <hr></hr>
-          <a href="clients"><i id="icon" className="fa fa-fw fa-user"></i>Register New Employee</a>
-          <hr></hr>
-          <a href="contact"><i id="icon" className="fa fa-print"></i>Print Last Weeks Hours</a>
-          <hr></hr>
+          <a href="/home" className="py-3"><i id="icon" className="fa fa-home ml-4"></i>Home</a>
+          <hr className="my-0"></hr>
+          <a href="/profile" className="py-3"><i id="icon" className="fa fa-cog ml-4" aria-hidden="true"></i>View My Profile</a>
+          <hr className="my-0"></hr>
+          <a href="clients" className="py-3"><i id="icon" className="fa fa-fw fa-user ml-4"></i>Register New Employee</a>
+          <hr className="my-0"></hr>
+          <a href="contact" className="py-3"><i id="icon" className="fa fa-print ml-4"></i>Print Last Weeks Hours</a>
+          <hr className="my-0"></hr>
         </div>
       </div>
     </div>
