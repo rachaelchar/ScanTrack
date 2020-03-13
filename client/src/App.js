@@ -13,6 +13,7 @@ import Header from "./components/Header";
 import Dummy from "./pages/Dummy";
 import Axios from 'axios';
 
+
 function App() {
   const { isAuth, setIsAuth } = useContext(AuthContext);
   console.log("App auth: ", isAuth);
