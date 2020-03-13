@@ -62,7 +62,7 @@ class ProfileChart extends Component{
     static defaultProps = {
         displayTitle: true,
         displayLegend: true,
-        legendPosition: 'right'
+        legendPosition: 'top'
     }
 
     render(){
@@ -89,7 +89,7 @@ class ProfileChart extends Component{
                 <Pie
                     data={this.state.chartData}
                     height={300}
-                    width={1000}
+                    width={800}
                     options = {{
                         title: {
                             display: this.props.displayTitle,
