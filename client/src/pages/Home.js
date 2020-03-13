@@ -10,7 +10,6 @@ import TableExample from "../components/TableExample";
 function Home(props) {
 
   const { isAuth, logout } = useContext(AuthContext);
-
   const [secret, setSecret] = useState("");
 
   // this function is duplicated in the Members page component
@@ -43,7 +42,6 @@ function Home(props) {
       </Row>
       {/* </Container> */}
     </div>
-
   );
 }
 
