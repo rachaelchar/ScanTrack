@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 
 export default function TableExample(props) {
@@ -7,7 +7,7 @@ export default function TableExample(props) {
   const history = useHistory();
 
   const redirect = (id) => {
-    history.push(`/Dummy/${id}`);
+    history.push(`/Profile/${id}`);
   };
 
   return (

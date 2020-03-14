@@ -10,7 +10,6 @@ import Members from "./pages/Members";
 import Profile from "./pages/Profile";
 import Container from "./components/Container";
 import Header from "./components/Header";
-import Dummy from "./pages/Dummy";
 import Axios from 'axios';
 
 function App() {
@@ -105,7 +104,7 @@ function App() {
           />
           <Route exact path="/login" render={props => <Login {...props} />} />
           <Route exact path="/signup" render={props => <Signup {...props} />} />
-          <Route exact path="/dummy/:code" render={props => <Dummy allUsers={users} {...props} />} />
+          <Route exact path="/profile/:code" render={props => <Profile allUsers={users} {...props} />} />
           <Route exact path="/home" render={props => <Signup {...props} />} />
           <PrivateRoute exact path="/members" component={Members} />
           <PrivateRoute exact path="/profile" component={Profile} />

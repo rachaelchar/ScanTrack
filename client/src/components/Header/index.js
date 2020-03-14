@@ -4,9 +4,9 @@ import { AuthContext } from "../../AuthContext";
 
 export default function Header() {
 
-  const { user } = useContext(AuthContext)
-  console.log("current user: ", user)
+  const { user, logout } = useContext(AuthContext)
 
+  console.log("current user: ", user)
 
   return (
     <div>
@@ -16,7 +16,11 @@ export default function Header() {
         <Navbar.Collapse className="justify-content-end">
           <AuthContext.Provider>
             <Navbar.Text>
-              Signed in as: <a href="#login">{user ? user.data.first_name : 'No User Logged In'}</a>
+              {user ?
+                <a onClick={logout}>{`Sign Out: ${user.data.first_name}`}</a>
+                :
+                <a href="/login">{`Sign In`}</a>
+              }
             </Navbar.Text>
           </AuthContext.Provider>
         </Navbar.Collapse>
