@@ -30,7 +30,7 @@ export default function Profile(props) {
                         <div className="col-9">
                             <div className="row mt-3">
                                 <div className="col-3">
-                                    <EmployeePhoto />
+                                    <EmployeePhoto employeeInfo={employee} />
                                 </div>
                                 <div className="col-6">
                                     <NameCard employeeInfo={employee} />
@@ -38,7 +38,7 @@ export default function Profile(props) {
                             </div>
                             <div className="row mt-5 d-block mr-5 ml-5">
                                 <ProfileButtons />
-                                <TakePictureButton />
+                                <TakePictureButton employeeInfo={employee} />
                             </div>
                         </div>
                     }

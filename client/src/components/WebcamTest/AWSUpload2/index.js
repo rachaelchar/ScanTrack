@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import S3FileUpload from 'react-s3';
 
-//Optional Import
-import { uploadFile } from 'react-s3';
 
 const config = {
   bucketName: 'employee-login',
@@ -24,12 +22,6 @@ class AWSUpload2 extends Component {
       .then(data => console.log(data.location))
       .catch(err => console.error(err))
   }
-
-
-
-
-
-
 
   render() {
     return (

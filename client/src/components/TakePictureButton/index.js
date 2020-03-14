@@ -1,11 +1,14 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import WebcamTest from '../WebcamTest';
-import S3 from '../WebcamTest/AWSUpload2';
 
 export default class ProfileButtons extends React.Component {
-
-    state = { isOpen: false };
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false
+        }
+    }
 
     handleShowDialog = () => {
         this.setState({ isOpen: !this.state.isOpen });
@@ -24,8 +27,7 @@ export default class ProfileButtons extends React.Component {
                         style={{ position: "absolute", top: "0%", left: "0%", width: "85%", height: "90%" }}
                         open
                     >
-                        <WebcamTest hideModel={this.handleShowDialog} />
-                        <S3 />
+                        <WebcamTest employeeInfo={this.props.employeeInfo} hideModel={this.handleShowDialog} />
                     </dialog>
                 )}
             </div>
