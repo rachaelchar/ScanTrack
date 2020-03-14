@@ -13,6 +13,7 @@ export default class ProfileButtons extends React.Component {
     render() {
         return (
             <div>
+                <WebcamTest />
                 <Button id="button" variant="secondary" size="lg" block onClick={this.handleShowDialog}>
                     Retake Profile Picture
                 </Button>
@@ -23,16 +24,8 @@ export default class ProfileButtons extends React.Component {
                         open
 
                     >
-                        <WebcamTest />
-                        <div className="container-fluid">
-                            {/* <div id="picDiv">
-                                <Camera />
-                            </div>
-                            <div id="btnDiv">
-                                <button id="webcam" class="camBtns">Start Webcam</button>
-                                <SnapshotButton />
 
-                            </div> */}
+                        <div className="container-fluid">
                             <button onClick={this.handleShowDialog}>Close me</button>
                         </div>
                     </dialog>
