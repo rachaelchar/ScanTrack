@@ -1,6 +1,6 @@
 
 module.exports = {
-  up: (queryInterface) => queryInterface.bulkInsert('users', [{
+  up: (queryInterface) => queryInterface.bulkInsert('Users', [{
     first_name: 'Rachael',
     last_name: 'Charewicz',
     email: 'rachael@scantrack.com',
