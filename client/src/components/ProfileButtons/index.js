@@ -5,10 +5,10 @@ export default function ProfileButtons() {
     return (
         <div>
   <Button id="button" variant="primary" size="lg" block>
-    Block level button
+    Request Time Off
   </Button>
   <Button id="button" variant="secondary" size="lg" block>
-    Block level button
+    View Pay Period
   </Button>
 </div>
     )
