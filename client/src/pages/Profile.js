@@ -1,62 +1,47 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../AuthContext";
-import Axios from "axios";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import "../App.css";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import EmployeePhoto from '../components/EmployeePhoto';
+import NameCard from '../components/NameCard';
+import SideNav from '../components/SideNav';
+import ProfileButtons from '../components/ProfileButtons';
 
-const Profile = props => {
-  // Destructure the logout function from AuthContext
-  const { logout, checkAuth } = useContext(AuthContext);
 
-  // The secret is just something to demonstrate a placeholder authenticated
-  // api route.
-  const [secret, setSecret] = useState("");
-  const [employee, setEmployee] = useState();
+export default function Profile(props) {
 
-  // this function is duplicated in the Home page component
-  // consider refactor
-  const getEmployees = async () => {
-    // Need to set scan input to 'code' variable in the below route 
-    const response = await Axios.get(`/api/employees/?code=`);
-    setEmployee(response.data);
-  };
+    const [employee, setEmployee] = React.useState(null);
 
-  console.log("checkAuth Profile: ", checkAuth())
+    const params = useParams()
 
-  return (
-    <Container className="signup">
-      <Row>
-        <Col md={{ span: 8, offset: 2 }}>
-          <h1>Profile Page</h1>
-          <Button
-            className="m-1"
-            onClick={() => {
-              logout();
-              setSecret("");
-            }}
-          >
-            Logout
-          </Button>
-          <Button
-            className="m-1"
-            onClick={() => {
-              props.history.push("/");
-            }}
-          >
-            Home
-          </Button>
-          <Button className="m-1" onClick={getEmployees}>
-            Show Employees
-          </Button>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={{ span: 8, offset: 2 }}>
-          <h1>{secret}</h1>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+    React.useEffect(() => {
+        const id = params.code
+        setEmployee(props.allUsers.filter(employee => employee.id == id)[0])
+    }, [])
 
-export default Profile;
+
+    return (
+        <div>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-3">
+                        <SideNav />
+                    </div>
+                    {employee !== null &&
+                        <div className="col-9">
+                            <div className="row mt-3">
+                                <div className="col-3">
+                                    <EmployeePhoto />
+                                </div>
+                                <div className="col-6">
+                                    <NameCard employeeInfo={employee} />
+                                </div>
+                            </div>
+                            <div className="row mt-5 d-block mr-5 ml-5">
+                                <ProfileButtons />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    )
+}
