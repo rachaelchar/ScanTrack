@@ -50,6 +50,9 @@ db.pay_type.hasMany(db.employee);
 db.clockin.belongsTo(db.employee);
 db.employee.hasMany(db.clockin);
 
+db.clockin.belongsTo(db.working_status);
+db.working_status.hasMany(db.clockin);
+
 db.timeoff.belongsTo(db.employee);
 db.employee.hasMany(db.timeoff);
 

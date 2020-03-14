@@ -6,6 +6,7 @@ export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false)
+    const [user, setUser] = useState();
 
     useEffect(() => {
         checkAuth()
@@ -14,8 +15,12 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
         Axios.get('api/auth/user_data')
             .then(response => {
-                if (response.data.email) {
+                console.log(response.data);
+                if (response.data.code) {
+                    setUser(response)
+
                     setIsAuth(true)
+                    // Set user so we can access later for profile page
                 } else {
                     setIsAuth(false)
                 }
@@ -24,12 +29,13 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         Axios.get("/api/auth/logout")
-          .then(() => {
-            setIsAuth(false);
-            return <Redirect to='/' />
-          })
-          .catch(err => console.log(err));
-      };
+            .then(() => {
+                setIsAuth(false);
+                setUser();
+                return <Redirect to='/' />
+            })
+            .catch(err => console.log(err));
+    };
 
-    return <AuthContext.Provider value={{ isAuth, setIsAuth, checkAuth, logout }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ isAuth, setUser, setIsAuth, checkAuth, logout, user }}>{children}</AuthContext.Provider>;
 };

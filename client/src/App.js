@@ -7,28 +7,17 @@ import Signup from "./pages/Signup";
 import moment from "moment"
 import Login from "./pages/Login";
 import Members from "./pages/Members";
+import Profile from "./pages/Profile";
 import Container from "./components/Container";
 import Header from "./components/Header";
 import Dummy from "./pages/Dummy";
 import Register from "./pages/Register";
 import Axios from 'axios';
 
-// Even though this is the App.js file, in the end we are not exactly exporting
-// the App component.  We actually set up the app component to implement our react
-// router, but in the end we export App wrapped in the context provider
-
 function App() {
-  // Here we subscribe the authentication context using the useContext hook
-  // we use isAuth to determine whether the user is logged in, and setIsAuth
-  // to change their status on logout.
   const { isAuth, setIsAuth } = useContext(AuthContext);
   console.log("App auth: ", isAuth);
 
-  // here we are ceating a private route wrapper to prevent front end routing to 
-  // restricted pages.  The ({ component: Component, ...rest })  argument that is
-  // passed to this functional component is essentially the same as just passing 
-  // props, but using object destucturing.  the ...rest is literally the rest of 
-  // the props that were not destructured. 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
       {...rest}
@@ -37,7 +26,6 @@ function App() {
       }
     />
   );
-
 
   const [users, setUsers] = React.useState([]);
   const [clockedIn, setClockedIn] = React.useState([]);
@@ -61,11 +49,11 @@ function App() {
           id: targetUser.id,
           working_status_id: targetUser.working_status_id,
           status: targetUser.working_status.status,
-          time: moment().format('HH:MM:SS'),
+          time: moment().format('HH:mm:ss'),
           week_num: moment(moment().format('L'), 'MM/DD/YYYY').week(),
           year: moment().format('YYYY-MM-DD'),
         };
-
+        console.log(clockinInfo)
         return clockinInfo;
       })
       .then((response) => {
@@ -82,10 +70,21 @@ function App() {
         Axios.put('/api/employees/clockin', {
           id: response.id,
           working_status_id: newStatus,
+          clockin: {
+            employee_id: response.id,
+            working_status_id: response.working_status_id,
+            time: response.time,
+            week_num: response.week_num,
+            year: response.year
+          },
         })
           .then(res => {
             setClockedIn(res.data)
           });
+        return response;
+      })
+      .then((response) => {
+
       })
       .catch((err) => {
         throw (err);
@@ -94,7 +93,6 @@ function App() {
 
   return (
     <>
-      <Header />
       <Router>
         <Switch>
           <Route
@@ -108,10 +106,11 @@ function App() {
           />
           <Route exact path="/login" render={props => <Login {...props} />} />
           <Route exact path="/signup" render={props => <Signup {...props} />} />
-          {/* Dummy page route below */}
-          <Route exact path="/dummy" render={props => <Dummy {...props} />} />
+          <Route exact path="/profile/:code" render={props => <Profile allUsers={users} {...props} />} />
           <Route exact path="/home" render={props => <Signup {...props} />} />
           <PrivateRoute exact path="/members" component={Members} />
+          <PrivateRoute exact path="/profile" component={Profile} />
+
         </Switch>
       </Router>
     </>
@@ -124,6 +123,7 @@ export default () => {
   return (
     <AuthProvider>
       <Container />
+      <Header />
       <App />
     </AuthProvider>
   );

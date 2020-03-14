@@ -1,8 +1,6 @@
 import React from "react";
 import Moment from "react-moment";
-import moment from "moment"
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Axios from 'axios';
 import './style.css';
 
 export default class ScanJumbotron extends React.Component {
@@ -18,11 +16,14 @@ export default class ScanJumbotron extends React.Component {
     this.setState({ value: event.target.value });
   }
 
-  handleSubmit(event, props) {
+  handleSubmit(event) {
     event.preventDefault();
     const code = this.state.value;
-    this.setState({ value: "" });
-    this.props.clockInFunc(code)
+    if (code !== "") {
+      this.setState({ value: "" });
+      this.props.clockInFunc(code)
+    }
+
   }
 
   render() {
@@ -37,7 +38,7 @@ export default class ScanJumbotron extends React.Component {
             <form id="scan-form" className="" onSubmit={this.handleSubmit}>
               <div className="mt-4">
                 <input id="badgeID"
-                  className="border mb-3"
+                  className="border mb-3" carethidden="true" autoFocus={true} autoComplete="off"
                   type="text" placeholder="Scan Badge" onChange={this.handleChange} value={this.state.value} />
               </div>
             </form>

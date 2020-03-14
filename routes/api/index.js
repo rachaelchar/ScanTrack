@@ -31,7 +31,8 @@ router.put('/employees/clockin', (req, res) => {
   db.employee.update(
     { working_status_id: req.body.working_status_id },
     { where: { id: req.body.id } },
-  )
+  );
+  db.clockin.create(req.body.clockin)
     .then(() => {
       const query = db.employee.findAll({
         where: { working_status_id: 1 },
@@ -42,6 +43,19 @@ router.put('/employees/clockin', (req, res) => {
         res.json(employees);
       });
     });
+});
+
+router.put('/employees/picture', (req, res) => {
+  db.employee.update(
+    { picture_fp: req.body.picture_fp },
+    { where: { id: req.body.id } },
+  );
+
+  db.employee.findOne({
+    where: { id: req.query.id },
+    include: [db.working_status, db.pay_type],
+  })
+    .then((employee) => res.json(employee));
 });
 
 router.post('/employees', (req, res) => {
