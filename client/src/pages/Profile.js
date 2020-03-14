@@ -4,6 +4,7 @@ import EmployeePhoto from '../components/EmployeePhoto';
 import NameCard from '../components/NameCard';
 import SideNav from '../components/SideNav';
 import ProfileButtons from '../components/ProfileButtons';
+import TakePictureButton from '../components/TakePictureButton';
 
 
 export default function Profile(props) {
@@ -37,6 +38,7 @@ export default function Profile(props) {
                             </div>
                             <div className="row mt-5 d-block mr-5 ml-5">
                                 <ProfileButtons />
+                                <TakePictureButton />
                             </div>
                         </div>
                     }
