@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import WebcamTest from '../WebcamTest';
+import S3 from '../WebcamTest/AWSUpload2';
 
 export default class ProfileButtons extends React.Component {
 
@@ -13,7 +14,7 @@ export default class ProfileButtons extends React.Component {
     render() {
         return (
             <div>
-                <WebcamTest />
+
                 <Button id="button" variant="secondary" size="lg" block onClick={this.handleShowDialog}>
                     Retake Profile Picture
                 </Button>
@@ -22,12 +23,9 @@ export default class ProfileButtons extends React.Component {
                         className="dialog"
                         style={{ position: "absolute", top: "0%", left: "0%", width: "85%", height: "90%" }}
                         open
-
                     >
-
-                        <div className="container-fluid">
-                            <button onClick={this.handleShowDialog}>Close me</button>
-                        </div>
+                        <WebcamTest hideModel={this.handleShowDialog} />
+                        <S3 />
                     </dialog>
                 )}
             </div>

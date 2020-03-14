@@ -53,3 +53,12 @@ export const Footer = styled.footer`
     margin: 0 10px;
   }
 `;
+
+export const Button = styled.button`
+  width: 75%;
+  min-width: 100px;
+  max-width: 250px;
+  margin-top: 4px;
+  padding: 12px 24px;
+  background: silver;
+`;
