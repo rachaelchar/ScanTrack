@@ -28,7 +28,6 @@ const LoginForm = props => {
         login(inputCreds)
         setFormData(emptyCreds)
         setUser(user)
-        console.log('Handle formsubmit user: ', user)
     }
 
     const login = loginCreds => {
@@ -36,7 +35,6 @@ const LoginForm = props => {
             .then(user => {
                 setIsAuth(true)
                 setUser(user)
-                console.log("login function user: ", user)
             })
             .catch(err => {
                 setCredsAreInvalid(errorMessage)

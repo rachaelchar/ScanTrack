@@ -16,6 +16,7 @@ export default function SideNav() {
           <hr className="my-0"></hr>
           <a href="/profile" className="py-3 sidelinks"><i id="icon" className="fa fa-cog ml-4" aria-hidden="true"></i>View My Profile</a>
           <hr className="my-0"></hr>
+          {/* CHECK ADMIN STATUS FRO BELOW BTN */}
           <a href="#" className="py-3 sidelinks"><i id="icon" className="fa fa-fw fa-user ml-4"></i>Register New Employee</a>
           <hr className="my-0"></hr>
           <a href="#" className="py-3 sidelinks"><i id="icon" className="fa fa-print ml-4"></i>Print Last Weeks Hours</a>
