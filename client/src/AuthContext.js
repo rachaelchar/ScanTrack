@@ -5,22 +5,40 @@ import { Redirect } from 'react-router-dom'
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [isAuth, setIsAuth] = useState(false)
+    const [isAuth, setIsAuth] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [user, setUser] = useState();
 
     useEffect(() => {
         checkAuth()
     }, [])
 
-    const checkAuth = async () => {
+    // const checkAdminStatus = () => {
+    //     Axios.get('api/employees')
+    //         .then(response => {
+    //             // use code from response to check db for that employee's admin status
+    //             console.log(response.data.code);
+    //             const userCode = response.data.code;
+    //         }).then(userCode => {
+
+    //         })
+
+
+    //     if (response.data.admin) {
+    //         setIsAdmin(true)
+    //     } else {
+    //         setIsAdmin(false)
+    //     }
+
+    // }
+
+    const checkAuth = () => {
         Axios.get('api/auth/user_data')
             .then(response => {
-                console.log(response.data);
+                console.log("response from checkAuth function: ", response);
                 if (response.data.code) {
                     setUser(response)
-
                     setIsAuth(true)
-                    // Set user so we can access later for profile page
                 } else {
                     setIsAuth(false)
                 }

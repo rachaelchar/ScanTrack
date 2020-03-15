@@ -14,7 +14,7 @@ import Axios from 'axios';
 
 function App() {
   const { isAuth, setIsAuth } = useContext(AuthContext);
-  console.log("App auth: ", isAuth);
+  // console.log("App auth: ", isAuth);
 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -36,6 +36,8 @@ function App() {
       })
   }, [])
 
+
+
   const clockInFunc = code => {
     Axios.get(`/api/employees/?code=${code}`)
       .then(res => {
@@ -51,7 +53,7 @@ function App() {
           week_num: moment(moment().format('L'), 'MM/DD/YYYY').week(),
           year: moment().format('YYYY-MM-DD'),
         };
-        console.log(clockinInfo)
+        console.log("clockinInfo =", clockinInfo)
         return clockinInfo;
       })
       .then((response) => {

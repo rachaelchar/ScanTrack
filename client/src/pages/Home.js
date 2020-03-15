@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../AuthContext";
 import "../App.css";
 import { Container, Row, Button, Col } from "react-bootstrap";
@@ -9,7 +9,7 @@ import TableExample from "../components/TableExample";
 
 function Home(props) {
 
-  const { isAuth, logout } = useContext(AuthContext);
+  const { isAuth, logout, checkAuth } = useContext(AuthContext);
   const [secret, setSecret] = useState("");
 
   // this function is duplicated in the Members page component
@@ -19,6 +19,10 @@ function Home(props) {
     console.log(secretResponse.data);
     setSecret(secretResponse.data);
   };
+
+  useEffect(() => {
+    checkAuth()
+  }, []);
 
   return (
     <div className="container-fluid">
