@@ -16,6 +16,7 @@ export default function EmployeePhoto(props) {
       <Row>
         <Col xs={6} md={4}>
           <Image alt="employee photo" style={divStyle} src={`${props.employeeInfo.picture_fp}`} roundedCircle />
+
         </Col>
       </Row>
     </Container>

@@ -45,14 +45,16 @@ class WebcamTest extends Component {
       <Fragment>
         <Root>
           {this.state.isCameraOpen && (
-            <Camera
-              onCapture={blob => {
-                const file = new File([blob], `${this.props.employeeInfo.code}.jpg`, { type: "image/jpeg" });
-                console.log(file)
-                this.upload(file)
+            <>
+              <Camera
+                onCapture={blob => {
+                  const file = new File([blob], `${this.props.employeeInfo.code}1.jpg`, { type: "image/jpeg" });
+                  console.log(file)
+                  this.upload(file)
 
-              }}
-            />
+                }}
+              />
+            </>
           )}
 
 

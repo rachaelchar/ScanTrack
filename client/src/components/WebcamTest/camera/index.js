@@ -53,7 +53,37 @@ export function Camera({ onCapture, onClear }) {
     videoRef.current.play();
   }
 
+
+  //=========================================================================
+  const [seconds, setSeconds] = useState(6);
+  const [isActive, setIsActive] = useState(false);
+
+
+
+  function reset() {
+    setSeconds(6);
+    setIsActive(!isActive);
+  }
+
+  React.useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds(seconds => seconds - 1);
+      }, 1000);
+    }
+    if (isActive && seconds === 0) {
+      clearInterval(interval);
+      handleCapture();
+    }
+    return () => clearInterval(interval);
+  }, [isActive, seconds]);
+
+
+  //=========================================================================
+
   function handleCapture() {
+
     const context = canvasRef.current.getContext("2d");
 
     context.drawImage(
@@ -72,6 +102,7 @@ export function Camera({ onCapture, onClear }) {
     setIsCanvasEmpty(false);
     setIsFlashing(true);
   }
+
 
   function handleClear() {
     const context = canvasRef.current.getContext("2d");
@@ -110,7 +141,21 @@ export function Camera({ onCapture, onClear }) {
             />
 
             <Overlay hidden={!isVideoPlaying} />
+            {/* ======================================================== */}
 
+            <Overlay
+              hidden={!isActive}
+              style={{
+                paddingTop: `150px`,
+                color: `white`,
+                fontSize: `100px`,
+                fontWeight: `bold`
+              }}
+            >{seconds}</Overlay>
+
+
+
+            {/* ==================================================================== */}
             <Canvas
               ref={canvasRef}
               width={container.width}
@@ -124,12 +169,22 @@ export function Camera({ onCapture, onClear }) {
           </Container>
 
           {isVideoPlaying && (
-            <Button onClick={isCanvasEmpty ? handleCapture : handleClear}>
+            <Button onClick={isCanvasEmpty ? reset : handleClear}>
               {isCanvasEmpty ? "Take a picture" : "Take another picture"}
             </Button>
           )}
+          {/* <div className="row"> */}
+          {/* <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>
+              {isActive ? 'Pause' : 'Start'}
+            </button> */}
+          {/* <button className="button" onClick={reset}>
+              Reset
+        </button> */}
+          {/* </div> */}
         </Wrapper>
       )}
+
+
     </Measure>
   );
 }
