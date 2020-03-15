@@ -68,24 +68,6 @@ class ProfileChart extends Component{
     render(){
         return (
             <div className="chart">
-                {/* <Bar
-                    data={this.state.chartData}
-                    height={300}
-                    width={1000}
-                    options = {{
-                        title: {
-                            display: this.props.displayTitle,
-                            text: 'Employee Hours',
-                            fontSize: 25
-                        },
-                        legend: {
-                            display: this.props.displayLegend,
-                            position: this.props.legendPosition
-
-                        }
-                    }}
-                /> */}
-
                 <Pie
                     data={this.state.chartData}
                     height={300}

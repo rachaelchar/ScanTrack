@@ -18,7 +18,7 @@ export default function SideNav() {
           <hr className="my-0"></hr>
           <a href="/register" className="py-3"><i id="icon" className="fa fa-fw fa-user ml-4"></i>Register New Employee</a>
           <hr className="my-0"></hr>
-          <a href="#" className="py-3"><i id="icon" className="fa fa-print ml-4"></i>Print Last Weeks Hours</a>
+          <a href="/print" className="py-3"><i id="icon" className="fa fa-print ml-4"></i>Print Last Weeks Hours</a>
           <hr className="my-0"></hr>
         </div>
       </div>

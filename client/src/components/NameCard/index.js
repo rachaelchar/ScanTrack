@@ -10,9 +10,9 @@ export default function NameCard(props) {
       <Card>
         <Card.Body>
           <ul style={{ listStyleType: "none" }}>
-            <li>Name {data.first_name} {data.last_name}</li>
-            <li>Position {data.position}</li>
-            <li>Accrued Time</li>
+            <li>Name: {data.first_name} {data.last_name}</li>
+            <li>Position: {data.position}</li>
+            <li>Accrued Time:</li>
           </ul>
         </Card.Body>
       </Card>

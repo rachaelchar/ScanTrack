@@ -12,6 +12,8 @@ import Container from "./components/Container";
 import Header from "./components/Header";
 import Axios from 'axios';
 import Register from './pages/Register';
+import HoursTable from './components/HoursTable';
+import PrintHours from "./pages/PrintHours";
 
 
 function App() {
@@ -109,6 +111,7 @@ function App() {
           <Route exact path="/profile/:code" render={props => <Profile allUsers={users} {...props} />} />
           <Route exact path="/home" render={props => <Signup {...props} />} />
           <Route exact path="/register" render={props => <Register {...props} />} />
+          <Route exact path="/print" render={props => <PrintHours {...props} />} />
           <PrivateRoute exact path="/members" component={Members} />
           <PrivateRoute exact path="/profile" component={Profile} />
 
