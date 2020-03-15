@@ -60,7 +60,7 @@ export function Camera({ onCapture }) {
 
 
 
-  function reset() {
+  function takePic() {
     setSeconds(6);
     setIsActive(!isActive);
   }
@@ -100,6 +100,7 @@ export function Camera({ onCapture }) {
 
     canvasRef.current.toBlob(blob => onCapture(blob), "image/jpeg", 1);
     setIsCanvasEmpty(false);
+    setIsActive(false);
     setIsFlashing(true);
   }
 
@@ -168,7 +169,7 @@ export function Camera({ onCapture }) {
           </Container>
 
           {isVideoPlaying && (
-            <Button onClick={isCanvasEmpty ? reset : handleClear}>
+            <Button onClick={isCanvasEmpty ? takePic : handleClear}>
               {isCanvasEmpty ? "Take a picture" : "Take another picture"}
             </Button>
           )}

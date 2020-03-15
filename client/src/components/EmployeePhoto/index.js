@@ -15,8 +15,11 @@ export default function EmployeePhoto(props) {
     <Container>
       <Row>
         <Col xs={6} md={4}>
-          <Image alt="employee photo" style={divStyle} src={`${props.employeeInfo.picture_fp}`} roundedCircle />
-
+          {props.employeeInfo !== undefined ? (
+            <Image alt="employee photo" style={divStyle} src={`${props.employeeInfo.picture_fp}`} roundedCircle />
+          ) : (
+              <Image alt="employee photo" style={divStyle} src={`https://t3.ftcdn.net/jpg/00/64/67/80/240_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg`} roundedCircle />
+            )}
         </Col>
       </Row>
     </Container>
