@@ -18,7 +18,7 @@ const CAPTURE_OPTIONS = {
   video: { facingMode: "environment" }
 };
 
-export function Camera({ onCapture, onClear }) {
+export function Camera({ onCapture }) {
   const canvasRef = useRef();
   const videoRef = useRef();
 
@@ -108,7 +108,6 @@ export function Camera({ onCapture, onClear }) {
     const context = canvasRef.current.getContext("2d");
     context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     setIsCanvasEmpty(true);
-    onClear();
   }
 
   if (!mediaStream) {
