@@ -36,6 +36,8 @@ function App() {
       })
   }, [])
 
+
+
   const clockInFunc = code => {
     Axios.get(`/api/employees/?code=${code}`)
       .then(res => {
@@ -51,7 +53,7 @@ function App() {
           week_num: moment(moment().format('L'), 'MM/DD/YYYY').week(),
           year: moment().format('YYYY-MM-DD'),
         };
-        console.log(clockinInfo)
+        console.log("clockinInfo =", clockinInfo)
         return clockinInfo;
       })
       .then((response) => {
