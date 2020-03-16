@@ -27,7 +27,7 @@ export default class ProfileButtons extends React.Component {
                         style={{ position: "absolute", top: "0%", left: "0%", width: "85%", height: "90%" }}
                         open
                     >
-                        <WebcamTest employeeInfo={this.props.employeeInfo} hideModel={this.handleShowDialog} />
+                        <WebcamTest updatePic={this.props.updatePic} employeeInfo={this.props.employeeInfo} hideModel={this.handleShowDialog} />
                     </dialog>
                 )}
             </div>

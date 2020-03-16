@@ -14,7 +14,7 @@ import Axios from 'axios';
 
 function App() {
   const { isAuth, setIsAuth } = useContext(AuthContext);
-  console.log("App auth: ", isAuth);
+  // console.log("App auth: ", isAuth);
 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route

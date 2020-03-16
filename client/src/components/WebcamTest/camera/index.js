@@ -173,14 +173,6 @@ export function Camera({ onCapture }) {
               {isCanvasEmpty ? "Take a picture" : "Take another picture"}
             </Button>
           )}
-          {/* <div className="row"> */}
-          {/* <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>
-              {isActive ? 'Pause' : 'Start'}
-            </button> */}
-          {/* <button className="button" onClick={reset}>
-              Reset
-        </button> */}
-          {/* </div> */}
         </Wrapper>
       )}
 

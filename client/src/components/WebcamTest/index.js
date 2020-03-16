@@ -28,14 +28,12 @@ class WebcamTest extends Component {
     S3FileUpload
       .uploadFile(file, config)
       .then(data => {
+        this.props.updatePic(data.location)
         console.log(data.location)
         axios.put(`/api/employees/picture`, {
           id: this.props.employeeInfo.id,
           picture_fp: data.location
         })
-          .then(res => {
-            this.setState({ employee: res.data })
-          })
       })
       .catch(err => console.error(err))
   }
@@ -47,10 +45,13 @@ class WebcamTest extends Component {
           {this.state.isCameraOpen && (
             <>
               <Camera
+                employeeInfo={this.props.employeeInfo}
                 onCapture={blob => {
-                  const file = new File([blob], `${this.props.employeeInfo.code}1.jpg`, { type: "image/jpeg" });
+                  // const file = new File([blob], `${this.props.employeeInfo.code}.jpg`, { type: "image/jpeg" });
+                  const file = new File([blob], `${new Date()}.jpg`, { type: "image/jpeg" });
                   console.log(file)
                   this.upload(file)
+
 
                 }}
               />
@@ -64,7 +65,7 @@ class WebcamTest extends Component {
               this.setState({ isCameraOpen: false });
             }}
           >
-            Close Camera
+            Save and Close
           </Button>
         </Root>
         <GlobalStyle />

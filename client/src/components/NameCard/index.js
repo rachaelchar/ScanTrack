@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 export default function NameCard(props) {
 
   let data = props.employeeInfo
-
   const history = useHistory();
 
   const redirect = () => {
