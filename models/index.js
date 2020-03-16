@@ -33,12 +33,12 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.clockin = require('../models/clockin')(sequelize, Sequelize);
-db.employee = require('../models/employee')(sequelize, Sequelize);
-db.leave_type = require('../models/leave_type')(sequelize, Sequelize);
-db.pay_type = require('../models/pay_type')(sequelize, Sequelize);
-db.timeoff = require('../models/timeoff')(sequelize, Sequelize);
-db.working_status = require('../models/working_status')(sequelize, Sequelize);
+db.clockin = require('./clockin')(sequelize, Sequelize);
+db.employee = require('./employee')(sequelize, Sequelize);
+db.leave_type = require('./leave_type')(sequelize, Sequelize);
+db.pay_type = require('./pay_type')(sequelize, Sequelize);
+db.timeoff = require('./timeoff')(sequelize, Sequelize);
+db.working_status = require('./working_status')(sequelize, Sequelize);
 
 // Relations
 db.employee.belongsTo(db.working_status);

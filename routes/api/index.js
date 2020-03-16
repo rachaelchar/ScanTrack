@@ -27,6 +27,22 @@ router.get('/employees', (req, res) => {
   return query.then((employees) => res.json(employees));
 });
 
+router.get('/clockins', (req, res) => {
+  let query;
+  if (req.query.id) {
+    query = db.clockin.findAll({
+      where: { employee_id: req.query.id },
+      include: [db.employee, db.working_status],
+    });
+  } else {
+    query = db.clockin.findAll({
+      include: [db.employee, db.working_status],
+    });
+  }
+
+  return query.then((employees) => res.json(employees));
+});
+
 router.put('/employees/clockin', (req, res) => {
   db.employee.update(
     { working_status_id: req.body.working_status_id },
@@ -61,6 +77,23 @@ router.put('/employees/picture', (req, res) => {
 router.post('/employees', (req, res) => {
   const employee = req.body;
   db.employee.create(employee)
+    .then(() => {
+      res.json({
+        success: true,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        errors: err.errors,
+      });
+    });
+});
+
+router.post('/users', (req, res) => {
+  const user = req.body;
+  db.User.create(user)
     .then(() => {
       res.json({
         success: true,

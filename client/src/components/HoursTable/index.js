@@ -20,26 +20,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import axios from 'axios';
+import moment from "moment"
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -68,12 +51,10 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'First Name' },
-  { id: 'calories', numeric: true, disablePadding: false, label: 'Last Name' },
-  { id: 'fat', numeric: true, disablePadding: false, label: 'Standard Hours' },
-  { id: 'carbs', numeric: true, disablePadding: false, label: 'Overtime Hours' },
-  { id: 'protein', numeric: true, disablePadding: false, label: 'Vacation Hours' },
-  { id: 'protein', numeric: true, disablePadding: false, label: 'Sick Hours' }
+  { id: 'first', numeric: false, disablePadding: true, label: 'First Name' },
+  { id: 'last', numeric: true, disablePadding: false, label: 'Last Name' },
+  { id: 'hours', numeric: true, disablePadding: false, label: 'Standard Hours' },
+  { id: 'ot', numeric: true, disablePadding: false, label: 'Overtime Hours' }
 ];
 
 function EnhancedTableHead(props) {
@@ -86,12 +67,6 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
-          />
         </TableCell>
         {headCells.map(headCell => (
           <TableCell
@@ -121,9 +96,7 @@ function EnhancedTableHead(props) {
 
 EnhancedTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
@@ -137,13 +110,13 @@ const useToolbarStyles = makeStyles(theme => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   title: {
     flex: '1 1 100%',
   },
@@ -151,37 +124,21 @@ const useToolbarStyles = makeStyles(theme => ({
 
 const EnhancedTableToolbar = props => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
 
   return (
     <Toolbar
       className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
       })}
     >
-      {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle">
-          Print Last Weeks Hours
-        </Typography>
-      )}
+      <Typography className={classes.title} variant="h6" id="tableTitle">
+        Print Last Weeks Hours
+          </Typography>
+      <Tooltip title="Filter list">
+        <IconButton aria-label="filter list">
+          <FilterListIcon />
+        </IconButton>
+      </Tooltip>
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
     </Toolbar>
   );
 };
@@ -223,6 +180,99 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  // =======================================================
+
+  const [rows, setRows] = React.useState([])
+  const [weekNums, setWeekNums] = React.useState([])
+  const [selectedWeekNums, setSelectedWeekNums] = React.useState()
+
+  React.useEffect(() => {
+    let weekNum = null;
+    let newWeekNum = weekNums;
+    let weekData = null;
+    for (let w = 0; w < 4; w++) {
+      weekData = {
+        number: moment(moment().format('L'), 'MM/DD/YYYY').week() - w,
+        start: moment().day("Sunday").week(moment(moment().format('L'), 'MM/DD/YYYY').week() - w).format('MM/DD/YYYY'),
+        end: moment().day("Saturday").week(moment(moment().format('L'), 'MM/DD/YYYY').week() - w).format('MM/DD/YYYY'),
+      }
+      newWeekNum.push(weekData)
+      setWeekNums(newWeekNum)
+    }
+    console.log("weeknums state:", weekNums)
+    setSelectedWeekNums(moment(moment().format('L'), 'MM/DD/YYYY').week() - 1);
+    weekNum = moment(moment().format('L'), 'MM/DD/YYYY').week() - 1
+
+
+
+
+    axios.get(`/api/clockins`)
+      .then(res => {
+        let clockins = res.data
+
+        var flags = {}, employee = [], l = clockins.length, i, e;
+        for (i = 0; i < l; i++) {
+          if (flags[clockins[i].employee_id]) continue;
+          flags[clockins[i].employee_id] = true;
+          employee.push(clockins[i].employee_id);
+        }
+
+        clockins = clockins.filter(clockin => clockin.week_num === weekNum)
+        let clockin = null
+        let clockout = null
+        let employeeHours = null
+        let eclockins = null
+
+        for (e = 0; e < employee.length; e++) {
+          eclockins = clockins.filter(clockin => clockin.employee_id === employee[e])
+
+          clockin = eclockins.filter(clockin => clockin.working_status_id === 1)
+          clockout = eclockins.filter(clockin => clockin.working_status_id === 2)
+
+          // console.log("clockin", clockin)
+          // console.log("clockout", clockout)
+          let time = 0.0;
+          let dateIn = null;
+          let dateOut = null;
+          let timeIn = null;
+          let timeOut = null;
+          for (i = 0; i < clockout.length; i++) {
+            dateIn = moment(clockin[i].year).format(`MMMM DD, YYYY`);
+            dateOut = moment(clockout[i].year).format(`MMMM DD, YYYY`);
+            timeIn = new Date(`${dateIn} ${clockin[i].time}`)
+            timeOut = new Date(`${dateOut} ${clockout[i].time}`)
+            time += ((timeOut.getTime() - timeIn.getTime()) / 3600000);
+          }
+
+          let ot = 0.0;
+          if (time >= 40) {
+            ot = time - 40;
+            time = 40.00
+          }
+
+          time = time.toFixed(2)
+          ot = ot.toFixed(2)
+
+          employeeHours = {
+            first: eclockins[0].employee.first_name,
+            last: eclockins[0].employee.last_name,
+            hours: time,
+            ot: ot
+          }
+
+          let newData = rows;
+          newData.push(employeeHours)
+          setRows(newData)
+          // console.log("state:", newData)
+          // console.log("clockins", clockins[0].employee.last_name)
+          // console.log("object built:", employeeHours)
+        }
+      })
+
+
+  }, [])
+  // =======================================================
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -238,25 +288,7 @@ export default function EnhancedTable() {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
 
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -278,6 +310,13 @@ export default function EnhancedTable() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
+        {/* <select id="dropdown">
+          <option value="N/A">N/A</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select> */}
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
@@ -305,26 +344,20 @@ export default function EnhancedTable() {
                   return (
                     <TableRow
                       hover
-                      onClick={event => handleClick(event, row.name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.first}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.name}
+                        {row.first}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.last}</TableCell>
+                      <TableCell align="right">{row.hours}</TableCell>
+                      <TableCell align="right">{row.ot}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -337,10 +370,10 @@ export default function EnhancedTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[5, 10]}
           component="div"
           count={rows.length}
-          rowsPerPage={rowsPerPage}
+          rowsPerPage={10}
           page={page}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
