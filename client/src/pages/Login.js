@@ -14,15 +14,15 @@ function Login(props) {
   console.log("login auth: ", isAuth)
 
   return (
-      isAuth ? <Redirect to='/' />
-        :
-        <Container className="signup">
-          <Row>
-            <Col md={{ span: 8, offset: 2 }}>
-              <LoginForm {...props}/>
-            </Col>
-          </Row>
-        </Container>
+    isAuth ? <Redirect to='/' />
+      :
+      <Container className="signup">
+        <Row>
+          <Col md={{ span: 8, offset: 2 }}>
+            <LoginForm {...props} />
+          </Col>
+        </Row>
+      </Container>
   );
 }
 

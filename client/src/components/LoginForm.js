@@ -27,15 +27,16 @@ const LoginForm = props => {
         }
         login(inputCreds)
         setFormData(emptyCreds)
-        console.log('user', user)
+        setUser(user)
+        console.log('Handle formsubmit user: ', user)
     }
 
     const login = loginCreds => {
         Axios.post('/api/auth/login', loginCreds)
             .then(user => {
-                console.log("login response ", user)
                 setIsAuth(true)
                 setUser(user)
+                console.log("login function user: ", user)
             })
             .catch(err => {
                 setCredsAreInvalid(errorMessage)
