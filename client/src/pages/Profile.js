@@ -46,12 +46,12 @@ export default class Profile extends Component {
                                     <div className="col-3">
                                         <EmployeePhoto employeeInfo={this.state.employee} />
                                     </div>
-                                    <div className="col-6">
+                                    <div className="col-6 offset-md-3">
                                         <NameCard employeeInfo={this.state.employee} />
                                     </div>
                                 </div>
                                 <div className="row mt-5 d-block mr-5 ml-5">
-                                    <ProfileButtons />
+                                    {/* <ProfileButtons /> */}
                                     <TakePictureButton updatePic={this.updatePic} employeeInfo={this.state.employee} />
                                 </div>
                             </div>
