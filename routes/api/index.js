@@ -27,6 +27,22 @@ router.get('/employees', (req, res) => {
   return query.then((employees) => res.json(employees));
 });
 
+router.get('/clockins', (req, res) => {
+  let query;
+  if (req.query.id) {
+    query = db.clockin.findAll({
+      where: { employee_id: req.query.id },
+      include: [db.employee, db.working_status],
+    });
+  } else {
+    query = db.clockin.findAll({
+      include: [db.employee, db.working_status],
+    });
+  }
+
+  return query.then((employees) => res.json(employees));
+});
+
 router.put('/employees/clockin', (req, res) => {
   db.employee.update(
     { working_status_id: req.body.working_status_id },
