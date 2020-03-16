@@ -60,7 +60,6 @@ export default class RegisterForm extends React.Component {
             sick_time: 0.00,
             picture_fp: "https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
             pay_type_id: 1,
-            password: "*",
         }
 
         const user = {
