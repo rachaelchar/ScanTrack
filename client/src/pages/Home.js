@@ -9,7 +9,7 @@ import TableExample from "../components/TableExample";
 
 function Home(props) {
 
-  const { isAuth, logout, checkAuth, checkAdminStatus, user } = useContext(AuthContext);
+  const { isAuth, logout, checkAuth, checkAdminStatus, isAdmin, user } = useContext(AuthContext);
   const [secret, setSecret] = useState("");
 
   // this function is duplicated in the Members page component
@@ -21,11 +21,13 @@ function Home(props) {
   };
 
   useEffect(() => {
-    checkAuth()
+    checkAuth();
+    checkAdminStatus();
+    console.log("admin? ", isAdmin);
   }, []);
 
   useEffect(() => {
-    checkAdminStatus()
+    checkAdminStatus();
   }, [user]);
 
   return (

@@ -15,21 +15,23 @@ export const AuthProvider = ({ children }) => {
 
     const checkAdminStatus = () => {
         if (user !== undefined && user !== "" && user !== null) {
-            console.log("***************************** \n user code from check admin ", user);
-            // Axios.get(`api/employees/${user.data.code}`)
             Axios.get(`api/employees/?code=${user.data.code}`)
                 .then(response => {
                     if (response.data !== undefined && response.data !== "" && response.data !== null) {
                         console.log("=======================");
                         console.log(response);
-                        if (response.data.admin === 1) {
+
+                        if (response.data.admin === true) {
                             setIsAdmin(true)
-                        } else {
+                            console.log(isAdmin);
+                        } else if (response.data.admin === false) {
                             setIsAdmin(false)
+                            console.log(isAdmin);
+                        } else {
+                            console.log("Who knows")
                         }
                     }
                 })
-
         }
     }
 
@@ -56,5 +58,5 @@ export const AuthProvider = ({ children }) => {
             .catch(err => console.log(err));
     };
 
-    return <AuthContext.Provider value={{ isAuth, setUser, setIsAuth, checkAuth, logout, user, checkAdminStatus }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ isAuth, setUser, setIsAuth, checkAuth, logout, user, checkAdminStatus, isAdmin }}>{children}</AuthContext.Provider>;
 };
