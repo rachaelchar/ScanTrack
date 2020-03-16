@@ -45,6 +45,19 @@ router.put('/employees/clockin', (req, res) => {
     });
 });
 
+router.put('/employees/picture', (req, res) => {
+  db.employee.update(
+    { picture_fp: req.body.picture_fp },
+    { where: { id: req.body.id } },
+  );
+
+  db.employee.findOne({
+    where: { id: req.query.id },
+    include: [db.working_status, db.pay_type],
+  })
+    .then((employee) => res.json(employee));
+});
+
 router.post('/employees', (req, res) => {
   const employee = req.body;
   db.employee.create(employee)

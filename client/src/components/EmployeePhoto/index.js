@@ -4,12 +4,22 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 
-export default function EmployeePhoto() {
+export default function EmployeePhoto(props) {
+  var divStyle = {
+    width: '300px',
+    height: '300px'
+  };
+
+
   return (
     <Container>
       <Row>
         <Col xs={6} md={4}>
-          <Image alt="employee photo" src="https://t4.ftcdn.net/jpg/00/64/67/63/240_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" roundedCircle />
+          {props.employeeInfo !== undefined ? (
+            <Image alt="employee photo" style={divStyle} src={`${props.employeeInfo.picture_fp}`} roundedCircle />
+          ) : (
+              <Image alt="employee photo" style={divStyle} src={`https://t3.ftcdn.net/jpg/00/64/67/80/240_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg`} roundedCircle />
+            )}
         </Col>
       </Row>
     </Container>
