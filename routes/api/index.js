@@ -91,6 +91,23 @@ router.post('/employees', (req, res) => {
     });
 });
 
+router.post('/users', (req, res) => {
+  const user = req.body;
+  db.User.create(user)
+    .then(() => {
+      res.json({
+        success: true,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        errors: err.errors,
+      });
+    });
+});
+
 router.delete('/employees/:id', (req, res) => {
   const { id } = req.params;
   db.employee.destroy({
