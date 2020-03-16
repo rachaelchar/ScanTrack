@@ -1,9 +1,52 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import logo from "../../images/logo.png";
+import { AuthContext } from "../../AuthContext";
+import Axios from 'axios'
 
 import './style.css';
 
 export default function SideNav() {
+  const { isAuth, logout, checkAuth, checkAdminStatus, user } = useContext(AuthContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    checkAdminStatus()
+  }, [user]);
+
+  const Home = () => {
+    history.push(`/`);
+  };
+
+  const Profile = () => {
+
+
+
+
+
+    if (user !== undefined) {
+      Axios.get(`api/employees/?code=${user.data.code}`)
+        .then(response => {
+          if (response.data !== undefined && response.data !== "" && response.data !== null) {
+            const id = response.data.id
+            history.push(`/profile/${id}`);
+          }
+        })
+
+    }
+    else {
+      history.push(`/profile`);
+    }
+
+  };
+
+  const Register = () => {
+    history.push(`/register`);
+  };
+
+  const Print = () => {
+    history.push(`/print`);
+  };
 
   return (
     <div className="row">
@@ -12,13 +55,14 @@ export default function SideNav() {
         <hr className="mb-0"></hr>
 
         <div className="sidebar">
-          <button href="/" className="py-3 sidelinks" id="sideButton"><i id="icon" className="fa fa-home ml-4"></i>Home</button>
           <hr className="my-0"></hr>
-          <button href="/profile" className="py-3 sidelinks" id="sideButton"><i id="icon" className="fa fa-cog ml-4" aria-hidden="true"></i>View My Profile</button>
+          <button onClick={() => { Home() }} className="py-3 sidelinks" id="sideButton"><i id="icon" className="fa fa-home ml-4"></i>Home</button>
           <hr className="my-0"></hr>
-          <button href="/register" className="py-3" id="sideButton"><i id="icon" className="fa fa-fw fa-user ml-4"></i>Register New Employee</button>
+          <button onClick={() => { Profile() }} className="py-3 sidelinks" id="sideButton"><i id="icon" className="fa fa-cog ml-4" aria-hidden="true"></i>View My Profile</button>
           <hr className="my-0"></hr>
-          <button href="/print" className="py-3" id="sideButton"><i id="icon" className="fa fa-print ml-4"></i>Print Last Weeks Hours</button>
+          <button onClick={() => { Register() }} className="py-3" id="sideButton"><i id="icon" className="fa fa-fw fa-user ml-4"></i>Register New Employee</button>
+          <hr className="my-0"></hr>
+          <button onClick={() => { Print() }} className="py-3" id="sideButton"><i id="icon" className="fa fa-print ml-4"></i>Print Last Weeks Hours</button>
           <hr className="my-0"></hr>
         </div>
       </div>

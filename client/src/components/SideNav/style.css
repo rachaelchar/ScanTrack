@@ -62,7 +62,7 @@ hr {
   text-align: left;
 }
 
-#sideButton button:hover {
+#sideButton:hover {
   background-color: #f1f1f1;
   color: #718096;
   text-decoration: none;
