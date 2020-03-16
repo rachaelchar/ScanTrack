@@ -109,6 +109,16 @@ module.exports = {
     created_at: new Date(),
     updated_at: new Date(),
   },
+  // EMPLOYEE 1 (week 3)
+  {
+    employee_id: 1,
+    working_status_id: 1,
+    time: '07:20:17',
+    week_num: 12,
+    year: '2020-03-16',
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
   // EMPLOYEE 2 (week 1)
   {
     employee_id: 2,
@@ -180,6 +190,16 @@ module.exports = {
     time: '16:59:11',
     week_num: 11,
     year: '2020-03-12',
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  // EMPLOYEE 2 (week 3)
+  {
+    employee_id: 2,
+    working_status_id: 1,
+    time: '09:20:17',
+    week_num: 12,
+    year: '2020-03-16',
     created_at: new Date(),
     updated_at: new Date(),
   },
@@ -329,6 +349,16 @@ module.exports = {
     created_at: new Date(),
     updated_at: new Date(),
   },
+  // EMPLOYEE 3 (week 3)
+  {
+    employee_id: 3,
+    working_status_id: 1,
+    time: '08:00:17',
+    week_num: 12,
+    year: '2020-03-16',
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
   // EMPLOYEE 4 (week 1)
   {
     employee_id: 4,
@@ -400,6 +430,16 @@ module.exports = {
     time: '17:00:10',
     week_num: 11,
     year: '2020-03-11',
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  // EMPLOYEE 4 (week 3)
+  {
+    employee_id: 4,
+    working_status_id: 1,
+    time: '07:57:17',
+    week_num: 12,
+    year: '2020-03-16',
     created_at: new Date(),
     updated_at: new Date(),
   },
