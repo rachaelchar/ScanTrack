@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useContext, useEffect } from "react";
 import SideNav from '../components/SideNav';
 import HoursTable from '../components/HoursTable';
-
+import { AuthContext } from "../AuthContext";
 
 
 export default function PrintHours() {
+
+    const { checkAdminStatus, isAdmin } = useContext(AuthContext);
+
+    useEffect(() => {
+        console.log("Admin?", isAdmin)
+    }, []);
+
     return (
         <div>
             <div className="container-fluid">
