@@ -54,11 +54,16 @@ hr {
 }
 
 #sideButton {
-  background-color: primary;
-  color: white;
+  background-color: #718096;
+  color: #e2e8f0;
   width: 100%;
+  border: none;
+  display: block;
+  text-align: left;
 }
 
-#icon {
-  display: block;
+#sideButton button:hover {
+  background-color: #f1f1f1;
+  color: #718096;
+  text-decoration: none;
 }
