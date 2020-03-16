@@ -3,7 +3,6 @@ import { Route, Switch, BrowserRouter as Router, Redirect } from "react-router-d
 import { AuthProvider, AuthContext } from "./AuthContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./pages/Home";
-import Signup from "./pages/Signup";
 import moment from "moment"
 import Login from "./pages/Login";
 import Members from "./pages/Members";
@@ -17,8 +16,7 @@ import PrintHours from "./pages/PrintHours";
 
 
 function App() {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
-  // console.log("App auth: ", isAuth);
+  const { isAuth, setIsAuth, isAdmin } = useContext(AuthContext);
 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -28,6 +26,15 @@ function App() {
       }
     />
   );
+
+  // const AdminRoute = ({ component: Component, ...rest }) => (
+  //   <Route
+  //     {...rest}
+  //     render={props =>
+  //       isAdmin ? <Component {...props} /> : <Redirect to="/" />
+  //     }
+  //   />
+  // );
 
   const [users, setUsers] = React.useState([]);
   const [clockedIn, setClockedIn] = React.useState([]);
@@ -39,8 +46,6 @@ function App() {
         setClockedIn(res.data.filter(employee => employee.working_status_id === 1))
       })
   }, [])
-
-
 
   const clockInFunc = code => {
     Axios.get(`/api/employees/?code=${code}`)
@@ -109,14 +114,13 @@ function App() {
               {...props} />}
           />
           <Route exact path="/login" render={props => <Login {...props} />} />
-          <Route exact path="/signup" render={props => <Signup {...props} />} />
           <Route exact path="/profile/:code" render={props => <Profile allUsers={users} {...props} />} />
-          <Route exact path="/home" render={props => <Signup {...props} />} />
           <Route exact path="/register" render={props => <Register {...props} />} />
+
+          {/* <AdminRoute exact path="/print" render={props => <PrintHours {...props} />} /> */}
           <Route exact path="/print" render={props => <PrintHours {...props} />} />
           <PrivateRoute exact path="/members" component={Members} />
           <PrivateRoute exact path="/profile" component={Profile} />
-
         </Switch>
       </Router>
     </>

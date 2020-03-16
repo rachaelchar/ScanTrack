@@ -7,7 +7,7 @@ import Axios from 'axios'
 import './style.css';
 
 export default function SideNav() {
-  const { isAuth, logout, checkAuth, checkAdminStatus, user } = useContext(AuthContext);
+  const { isAuth, logout, checkAuth, checkAdminStatus, user, isAdmin } = useContext(AuthContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -20,10 +20,6 @@ export default function SideNav() {
 
   const Profile = () => {
 
-
-
-
-
     if (user !== undefined) {
       Axios.get(`api/employees/?code=${user.data.code}`)
         .then(response => {
@@ -32,7 +28,6 @@ export default function SideNav() {
             history.push(`/profile/${id}`);
           }
         })
-
     }
     else {
       history.push(`/profile`);
@@ -45,7 +40,10 @@ export default function SideNav() {
   };
 
   const Print = () => {
-    history.push(`/print`);
+
+    if (isAdmin === true) {
+      history.push(`/print`);
+    }
   };
 
   return (

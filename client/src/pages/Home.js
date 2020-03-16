@@ -44,7 +44,6 @@ function Home(props) {
           <TableExample
             allUsers={props.allUsers}
             clockedInUsers={props.clockedInUsers}
-
           />
         </Col>
       </Row>
