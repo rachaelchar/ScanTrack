@@ -40,9 +40,20 @@ export default function SideNav() {
   };
 
   const Print = () => {
-
-    if (isAdmin === true) {
-      history.push(`/print`);
+    if (user !== undefined) {
+      Axios.get(`api/employees/?code=${user.data.code}`)
+        .then(response => {
+          console.log(response.data.admin)
+          if (response.data.admin === true) {
+            history.push(`/print`);
+          }
+          else {
+            alert("Access Restricted to Admins Only!")
+          }
+        })
+    }
+    else {
+      history.push(`/profile`);
     }
   };
 
