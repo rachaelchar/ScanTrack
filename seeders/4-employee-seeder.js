@@ -12,6 +12,7 @@ module.exports = {
     pay_type_id: 1,
     created_at: new Date(),
     updated_at: new Date(),
+    password: '*',
   },
   {
     first_name: 'Marissa',
@@ -25,6 +26,7 @@ module.exports = {
     pay_type_id: 1,
     created_at: new Date(),
     updated_at: new Date(),
+    password: '*',
   },
   {
     first_name: 'Kyle',
@@ -38,6 +40,7 @@ module.exports = {
     pay_type_id: 1,
     created_at: new Date(),
     updated_at: new Date(),
+    password: '*',
   },
   {
     first_name: 'Brandon',
@@ -51,6 +54,7 @@ module.exports = {
     pay_type_id: 3,
     created_at: new Date(),
     updated_at: new Date(),
+    password: '*',
   },
   ]),
 };
