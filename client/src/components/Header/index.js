@@ -6,8 +6,6 @@ export default function Header() {
 
   const { user, logout } = useContext(AuthContext)
 
-  console.log("current user: ", user)
-
   return (
     <div>
       <Navbar bg="secondary" variant="dark">

@@ -9,7 +9,7 @@ import TableExample from "../components/TableExample";
 
 function Home(props) {
 
-  const { isAuth, logout, checkAuth } = useContext(AuthContext);
+  const { isAuth, logout, checkAuth, checkAdminStatus, user } = useContext(AuthContext);
   const [secret, setSecret] = useState("");
 
   // this function is duplicated in the Members page component
@@ -23,6 +23,10 @@ function Home(props) {
   useEffect(() => {
     checkAuth()
   }, []);
+
+  useEffect(() => {
+    checkAdminStatus()
+  }, [user]);
 
   return (
     <div className="container-fluid">
