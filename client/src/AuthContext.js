@@ -13,29 +13,29 @@ export const AuthProvider = ({ children }) => {
         checkAuth()
     }, [])
 
-    // const checkAdminStatus = () => {
-    //     Axios.get('api/employees')
-    //         .then(response => {
-    //             // use code from response to check db for that employee's admin status
-    //             console.log(response.data.code);
-    //             const userCode = response.data.code;
-    //         }).then(userCode => {
+    const checkAdminStatus = () => {
+        if (user !== undefined && user !== "" && user !== null) {
+            console.log("***************************** \n user code from check admin ", user);
+            // Axios.get(`api/employees/${user.data.code}`)
+            Axios.get(`api/employees/?code=${user.data.code}`)
+                .then(response => {
+                    if (response.data !== undefined && response.data !== "" && response.data !== null) {
+                        console.log("=======================");
+                        console.log(response);
+                        if (response.data.admin === 1) {
+                            setIsAdmin(true)
+                        } else {
+                            setIsAdmin(false)
+                        }
+                    }
+                })
 
-    //         })
-
-
-    //     if (response.data.admin) {
-    //         setIsAdmin(true)
-    //     } else {
-    //         setIsAdmin(false)
-    //     }
-
-    // }
+        }
+    }
 
     const checkAuth = () => {
         Axios.get('api/auth/user_data')
             .then(response => {
-                console.log("response from checkAuth function: ", response);
                 if (response.data.code) {
                     setUser(response)
                     setIsAuth(true)
@@ -50,10 +50,11 @@ export const AuthProvider = ({ children }) => {
             .then(() => {
                 setIsAuth(false);
                 setUser();
+                setIsAdmin(false);
                 return <Redirect to='/' />
             })
             .catch(err => console.log(err));
     };
 
-    return <AuthContext.Provider value={{ isAuth, setUser, setIsAuth, checkAuth, logout, user }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ isAuth, setUser, setIsAuth, checkAuth, logout, user, checkAdminStatus }}>{children}</AuthContext.Provider>;
 };

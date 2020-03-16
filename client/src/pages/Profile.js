@@ -1,47 +1,64 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { Component } from 'react';
 import EmployeePhoto from '../components/EmployeePhoto';
 import NameCard from '../components/NameCard';
 import SideNav from '../components/SideNav';
 import ProfileButtons from '../components/ProfileButtons';
+import TakePictureButton from '../components/TakePictureButton';
 
 
-export default function Profile(props) {
+export default class Profile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: this.props.match.params.code,
+            employee: this.props.allUsers
+        }
+    }
 
-    const [employee, setEmployee] = React.useState(null);
+    componentDidMount() {
+        var id = parseInt(this.props.match.params.code)
+        this.setState({
+            employee: this.props.allUsers.filter(xyz => xyz.id === id)[0]
+        })
+    }
 
-    const params = useParams()
+    updatePic = (filepath) => {
+        this.setState(prevState => ({
+            employee: {
+                ...prevState.employee,
+                picture_fp: filepath
+            }
+        }))
+    }
 
-    React.useEffect(() => {
-        const id = params.code
-        setEmployee(props.allUsers.filter(employee => employee.id == id)[0])
-    }, [])
-
-
-    return (
-        <div>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-3">
-                        <SideNav />
-                    </div>
-                    {employee !== null &&
-                        <div className="col-9">
-                            <div className="row mt-3">
-                                <div className="col-3">
-                                    <EmployeePhoto />
-                                </div>
-                                <div className="col-6">
-                                    <NameCard employeeInfo={employee} />
-                                </div>
-                            </div>
-                            <div className="row mt-5 d-block mr-5 ml-5">
-                                <ProfileButtons />
-                            </div>
+    render() {
+        return (
+            <div>
+                {console.log("jsadkadkah", this.props.allUsers)}
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-3">
+                            <SideNav />
                         </div>
-                    }
+                        {this.employee !== null &&
+                            <div className="col-9">
+                                <div className="row mt-3">
+                                    <div className="col-3">
+                                        <EmployeePhoto employeeInfo={this.state.employee} />
+                                    </div>
+                                    <div className="col-6">
+                                        <NameCard employeeInfo={this.state.employee} />
+                                    </div>
+                                </div>
+                                <div className="row mt-5 d-block mr-5 ml-5">
+                                    <ProfileButtons />
+                                    <TakePictureButton updatePic={this.updatePic} employeeInfo={this.state.employee} />
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
