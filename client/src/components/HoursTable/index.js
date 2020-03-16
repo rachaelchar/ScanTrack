@@ -183,9 +183,28 @@ export default function EnhancedTable() {
   // =======================================================
 
   const [rows, setRows] = React.useState([])
+  const [weekNums, setWeekNums] = React.useState([])
+  const [selectedWeekNums, setSelectedWeekNums] = React.useState()
 
   React.useEffect(() => {
-    const weekNum = moment(moment().format('L'), 'MM/DD/YYYY').week() - 1;
+    let weekNum = null;
+    let newWeekNum = weekNums;
+    let weekData = null;
+    for (let w = 0; w < 4; w++) {
+      weekData = {
+        number: moment(moment().format('L'), 'MM/DD/YYYY').week() - w,
+        start: moment().day("Sunday").week(moment(moment().format('L'), 'MM/DD/YYYY').week() - w).format('MM/DD/YYYY'),
+        end: moment().day("Saturday").week(moment(moment().format('L'), 'MM/DD/YYYY').week() - w).format('MM/DD/YYYY'),
+      }
+      newWeekNum.push(weekData)
+      setWeekNums(newWeekNum)
+    }
+    console.log("weeknums state:", weekNums)
+    setSelectedWeekNums(moment(moment().format('L'), 'MM/DD/YYYY').week() - 1);
+    weekNum = moment(moment().format('L'), 'MM/DD/YYYY').week() - 1
+
+
+
 
     axios.get(`/api/clockins`)
       .then(res => {
@@ -210,8 +229,8 @@ export default function EnhancedTable() {
           clockin = eclockins.filter(clockin => clockin.working_status_id === 1)
           clockout = eclockins.filter(clockin => clockin.working_status_id === 2)
 
-          console.log("clockin", clockin)
-          console.log("clockout", clockout)
+          // console.log("clockin", clockin)
+          // console.log("clockout", clockout)
           let time = 0.0;
           let dateIn = null;
           let dateOut = null;
@@ -244,9 +263,9 @@ export default function EnhancedTable() {
           let newData = rows;
           newData.push(employeeHours)
           setRows(newData)
-          console.log("state:", newData)
-          console.log("clockins", clockins[0].employee.last_name)
-          console.log("object built:", employeeHours)
+          // console.log("state:", newData)
+          // console.log("clockins", clockins[0].employee.last_name)
+          // console.log("object built:", employeeHours)
         }
       })
 
@@ -269,25 +288,7 @@ export default function EnhancedTable() {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
 
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -309,6 +310,13 @@ export default function EnhancedTable() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
+        {/* <select id="dropdown">
+          <option value="N/A">N/A</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select> */}
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
@@ -339,7 +347,7 @@ export default function EnhancedTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.first}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
