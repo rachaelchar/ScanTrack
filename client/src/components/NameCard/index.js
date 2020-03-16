@@ -13,13 +13,13 @@ export default function NameCard(props) {
 
   return (
     <div>
-      <Card>
+      <Card className="shadow border border-secondary">
         <Card.Body>
           {props.employeeInfo !== undefined ? (
             <ul style={{ listStyleType: "none" }}>
-              <li>Name {data.first_name} {data.last_name}</li>
-              <li>Position {data.position}</li>
-              <li>Accrued Time</li>
+              <li>Name: {data.first_name} {data.last_name}</li>
+              <li>Position: {data.position}</li>
+              {/* <li>Accrued Time: </li> */}
             </ul>
           ) : (redirect())}
         </Card.Body>
