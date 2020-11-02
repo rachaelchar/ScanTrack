@@ -107,18 +107,18 @@ function App() {
           <Route
             exact
             path="/"
-            render={props => <Home
+            render={props => isAuth ? <Home
               allUsers={users}
               clockedInUsers={clockedIn}
               clockInFunc={clockInFunc}
-              {...props} />}
+              {...props} /> : <Redirect to="/login"/>}
           />
           <Route exact path="/login" render={props => <Login {...props} />} />
-          <Route exact path="/profile/:code" render={props => <Profile allUsers={users} {...props} />} />
-          <Route exact path="/register" render={props => <Register {...props} />} />
+          <Route exact path="/profile/:code" render={props => isAuth ? <Profile allUsers={users} {...props} /> : <Redirect to="/login" />} />
+          <Route exact path="/register" render={props => isAuth ? <Register {...props} /> : <Redirect to="/login"/>} />
 
           {/* <AdminRoute exact path="/print" render={props => <PrintHours {...props} />} /> */}
-          <Route exact path="/print" render={props => <PrintHours {...props} />} />
+          <Route exact path="/print" render={props => isAuth ? <PrintHours {...props}/> : <Redirect to ="/login" />} />
           <PrivateRoute exact path="/members" component={Members} />
           <PrivateRoute exact path="/profile" component={Profile} />
         </Switch>
@@ -127,6 +127,13 @@ function App() {
   );
 }
 
+
+// <Route
+//       {...rest}
+//       render={props =>
+//         isAuth ? <Component {...props} /> : <Redirect to="/login" />
+//       }
+//     />
 // Here we export the final product of our app/context configuration, and
 // even though it is unnamed here, it will be imported as App in index.js
 export default () => {

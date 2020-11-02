@@ -16,7 +16,7 @@ export default function Header() {
           <AuthContext.Provider>
             <Navbar.Text >
               {user ?
-                <a onClick={logout} className="signout-text">{`Sign Out: ${user.data.first_name}`}</a>
+                <a onClick={logout} href="/login" className="signout-text">{`Sign Out: ${user.data.first_name}`}</a>
                 :
                 <a href="/login">{`Sign In`}</a>
               }

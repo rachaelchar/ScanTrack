@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const db = require('../../models');
 const isAuthenticated = require('../../config/middleware/isAuthenticated');
+const { ConnectionError } = require('sequelize');
 
 router.get('/secrets', isAuthenticated, (req, res) => {
   res.json('Talk is cheap. Show me the code. -Linus Torvalds');
@@ -25,6 +26,16 @@ router.get('/employees', (req, res) => {
   }
 
   return query.then((employees) => res.json(employees));
+});
+
+router.get('/state', (req, res) => {
+  connection.getConnection(function (err, connction) {
+    connection.query('SELECT * FROM State', function (error, results, fields) {
+      if (error) throw error;
+
+      res.send(results)
+    });
+  });
 });
 
 router.get('/clockins', (req, res) => {

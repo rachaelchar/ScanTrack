@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
                 setIsAuth(false);
                 setUser();
                 setIsAdmin(false);
-                return <Redirect to='/' />
+                return <Redirect to='/login' />
             })
             .catch(err => console.log(err));
     };
